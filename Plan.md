@@ -1,12 +1,12 @@
 ## Plan
 
-- Create http context to get user data from
+- Create http context to get user data from [GitHub](https://api.github.com/users/)
 
   - Create a struct to hold user data
-  - Create `get_user_data/1` function that makes http calls to `https://api.github.com/users/:username` and return user data
+  - Create `find_dev/1` function that makes http calls to `https://api.github.com/users/:username` and return user data
     - [Finch](https://hex.pm/packages/finch) http client will be used
   - Expose APIs to be used by controllers
-    - `get_user/1:` returns a map of user data
+    - `get_user_data/1:` returns a map of user data
 
 - Create controllers to render user data
 
