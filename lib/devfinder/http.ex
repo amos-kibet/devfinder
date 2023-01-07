@@ -24,7 +24,6 @@ defmodule Devfinder.Http do
         if response.status == 200 do
           response
           |> Map.get(:body)
-          # returns a map of {:ok, response_map} ↲
           |> Jason.decode()
         else
           {:error, :not_found}
@@ -32,21 +31,23 @@ defmodule Devfinder.Http do
 
       {:error, _error} ->
         Logger.error("Something went wrong!")
+        :finch_error
     end
   end
 
-  def get_dev_bio(username) do
+  def get_user_data(username) do
     case find_dev(username) do
       {:ok, bio} ->
         dev_bio = %User{
           full_name: bio["name"],
           avatar_url: bio["avatar_url"],
           username: bio["login"],
+          profile_url: bio["html_url"],
           bio: bio["bio"],
           location: bio["location"],
           twitter_username: bio["twitter_username"],
           company: bio["company"],
-          work_url: bio["blog"],
+          blog: bio["blog"],
           created_at: bio["created_at"],
           profile_stats: %{
             public_repos: "#{bio["public_repos"]}",
@@ -55,10 +56,11 @@ defmodule Devfinder.Http do
           }
         }
 
-        dev_bio
+        {:ok, dev_bio}
 
       {:error, :not_found} ->
         Logger.info("Username does not exist! Try another")
+        {:error, :not_found}
     end
   end
 
