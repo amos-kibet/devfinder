@@ -1,0 +1,49 @@
+<div>
+	<.form
+			let={f}
+		  for={:user_bio},
+		  id="search-form"
+      as="username"
+		  phx-change="validate"
+      phx-submit="search">
+
+      <%= text_input f, :username, phx_debounce: "blur" %>
+      <%= error_tag  f, :username %>
+
+      <%= submit "Search", phx_disable_with: "Searching..." %>
+			<%= error_tag f, :get_user %>
+    </.form>
+</div>
+
+<div class="profile">
+	<div>
+		<img src={@user_bio.avatar_url} alt="">
+	</div>
+	<div>
+		<h2><%= @user_bio.full_name %> </h2>
+		<p><a href={@user_bio.profile_url}><%= @user_bio.username %></a></p>
+		<p> <%= @user_bio.bio %></p>
+
+		<div class="dflex">
+			<p>
+			Repos
+				<span> <%= @user_bio.profile_stats["public_repos"] %></span>
+			</p>
+			<p>
+				Followers
+				<span><%= @user_bio.profile_stats["followers"] %></span>
+			</p>
+			<p>
+				Following
+				<span> <%= @user_bio.profile_stats["following"] %></span>
+			</p>
+		</div>
+
+		<div class="cols">
+			<p><%= @user_bio.location %></p>
+			<p><%= @user_bio.blog %></p>
+			<p><%= @user_bio.twitter_username %></p>
+			<p><%= @user_bio.company %></p>
+		</div>
+	</div>
+</div>
