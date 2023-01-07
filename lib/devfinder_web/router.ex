@@ -17,7 +17,12 @@ defmodule DevfinderWeb.Router do
   scope "/", DevfinderWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", UserLive.Index
+    # live "/new", UserLive.Index, :new
+    # live "/:id/edit", UserLive.Index, :edit
+
+    # live "/:id", UserLive.Show, :show
+    # live "/:id/show/edit", UserLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
