@@ -4,11 +4,12 @@ defmodule Devfinder.Http.User do
   defstruct avatar_url: nil,
             full_name: nil,
             username: nil,
+            profile_url: nil,
             bio: nil,
             created_at: nil,
             profile_stats: %{public_repos: nil, followers: nil, following: nil},
             location: nil,
             twitter_username: nil,
             company: nil,
-            work_url: nil
+            blog: nil
 end
