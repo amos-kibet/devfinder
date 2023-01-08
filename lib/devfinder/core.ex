@@ -4,7 +4,5 @@ defmodule Devfinder.Core do
   """
   alias Devfinder.Http
 
-  def get_user(username) do
-    Http.get_user_data(username)
-  end
+  defdelegate get_user(username), to: Http, as: :get_user_data
 end
