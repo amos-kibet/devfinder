@@ -12,7 +12,7 @@ defmodule Devfinder.Http do
 
   @url "https://api.github.com/users/"
 
-  def find_dev(username) when is_binary(username) do
+  defp find_dev(username) when is_binary(username) do
     url = gen_username_url(username)
 
     result =
