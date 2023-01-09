@@ -1,51 +1,45 @@
 defmodule DevfinderWeb.UserLive.Index do
   use DevfinderWeb, :live_view
 
+  require Logger
+
   alias Devfinder.Core
-  # alias Devfinder.Http.User
+  alias Devfinder.Http.User
 
   @impl true
   def mount(_params, _session, socket) do
-    hardcoded = "amos-kibet"
+    # hardcoded = "amos-kibet"
 
-    {:ok, assign(socket, :user_bio, get_user(hardcoded))}
+    {:ok, assign(socket, :user_bio, %User{})}
     |> IO.inspect(label: "[INDEX MOUNT SOCKET]")
   end
 
-  # @impl true
-  # def handle_params(params, _url, socket) do
-  #   {:noreply, apply_action(socket, socket.assigns.live_action, params)}
-  # end
+  @impl true
+  def handle_event("search", %{"user_bio" => %{"username" => username} = _user_params}, socket) do
+    case get_user(username) do
+      :not_found ->
+        Logger.info("Username not found!")
+        {:noreply, socket}
 
-  # defp apply_action(socket, :edit, %{"id" => id}) do
-  #   socket
-  #   |> assign(:page_title, "Edit User")
-  #   |> assign(:user, Core.get_user!(id))
-  # end
+      user_bio ->
+        {:noreply, assign(socket, :user_bio, user_bio)}
+        |> IO.inspect(label: "[HANDLE_EVENT SOCKET]")
+    end
+  end
 
-  # defp apply_action(socket, :search, _params) do
-  #   socket
-  #   |> assign(:page_title, "Search User")
-  #   |> assign(:user, %User{})
-  # end
+  def get_user(username) do
+    case Core.get_user(username) do
+      {:error, :finch_error} ->
+        Logger.error("Something went wrong!")
+        :finch_error
 
-  # defp apply_action(socket, :index, _params) do
-  #   socket
-  #   |> assign(:page_title, "Devfinder User Bio")
-  #   |> assign(:user, nil)
-  # end
+      {:error, :not_found} ->
+        Logger.info("Username not found!")
+        :not_found
 
-  # @impl true
-  # def handle_event("delete", %{"id" => id}, socket) do
-  #   user = Core.get_user!(id)
-  #   {:ok, _} = Core.delete_user(user)
-
-  #   {:noreply, assign(socket, :users, list_users())}
-  # end
-
-  def get_user(params) do
-    {:ok, user} = Core.get_user(params)
-
-    user
+      {:ok, user} ->
+        user
+        |> IO.inspect(label: "[HANDLE_EVENT GET_USER USER]")
+    end
   end
 end
