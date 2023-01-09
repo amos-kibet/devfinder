@@ -30,8 +30,7 @@ defmodule Devfinder.Http do
         end
 
       {:error, _error} ->
-        Logger.error("Something went wrong!")
-        :finch_error
+        {:error, :finch_error}
     end
   end
 
@@ -59,8 +58,10 @@ defmodule Devfinder.Http do
         {:ok, dev_bio}
 
       {:error, :not_found} ->
-        Logger.info("Username does not exist! Try another")
         {:error, :not_found}
+
+      {:error, _error} ->
+        {:error, :finch_error}
     end
   end
 
