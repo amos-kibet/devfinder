@@ -4,36 +4,36 @@ defmodule DevfinderWeb.UserLive.Index do
   require Logger
 
   alias Devfinder.Core
-  alias Devfinder.Http.User
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :user_bio, %User{})}
+    {:ok, assign(socket, :user_bio, get_user_bio("octocat"))}
   end
 
   @impl true
   def handle_event("search", %{"user_bio" => %{"username" => username}} = _user_params, socket) do
-    case get_user(username) do
-      :finch_error ->
-        Logger.error("Something went wrong!")
-        {:noreply, socket}
+    case get_user_bio(username) do
       :not_found ->
-        Logger.info("Username not found!")
-        {:noreply, socket}
+        {:noreply,
+         socket
+         |> put_flash(:info, "Username not found! Try another")
+         |> assign(:user_bio, get_user_bio("octocat"))}
 
       user_bio ->
         {:noreply, assign(socket, :user_bio, user_bio)}
     end
   end
 
-  def get_user(username) do
-    case Core.get_user(username) do
+  def get_user_bio(username) do
+    case Core.get_user_bio(username) do
       {:error, :finch_error} ->
-        Logger.error("Something went wrong!")
-        :finch_error
+        Logger.error("Something went wrong! Retrying")
+        Core.get_user_bio(username)
+
       {:error, :not_found} ->
-        Logger.info("Username not found!")
+        Logger.info("Username not found! Try another")
         :not_found
+
       {:ok, user} ->
         user
     end

@@ -1,4 +1,4 @@
-<div>
+<div class="mx-[355px] mt-[36px]">
 	<.form
 	  let={f}
 	  for={:user_bio},
@@ -13,35 +13,27 @@
     </.form>
 </div>
 
-<div class="profile">
-	<div>
-		<img src={@user_bio.avatar_url} alt="developer profile avatar">
+<div class="bg-[#FEFEFE] shadow-sm absolute w-[730px] h-[419px] mx-[355px] mb-[170px] rounded-[15px] mt-[24px]">
+	<div class="w-[117px] h-[117px] pl-[48px] pt-[48px]">
+		<img class="rounded-full" src={@user_bio.avatar_url} alt="developer profile avatar">
 	</div>
-	<div>
-		<h2>Name: <%= @user_bio.full_name %> </h2>
-		<p>Profile: <a href={@user_bio.profile_url}><%= @user_bio.username %></a></p>
-		<p>Bio: <%= @user_bio.bio %></p>
+	<h2 class="text-[#2B3442]">
+		<%= @user_bio.full_name %>
+	</h2>
 
-		<div class="dflex">
-			<p>
-			Repos:
-				<span> <%= @user_bio.profile_stats[:public_repos] %></span>
-			</p>
-			<p>
-				Followers:
-				<span><%= @user_bio.profile_stats[:followers] %></span>
-			</p>
-			<p>
-				Following:
-				<span> <%= @user_bio.profile_stats[:following] %></span>
-			</p>
-		</div>
+	<p><a href={@user_bio.profile_url}><%= @user_bio.username %></a></p>
+	<p><%= @user_bio.bio %></p>
 
-		<div class="cols">
-			<p>Location: <%= @user_bio.location %></p>
-			<p>Blog: <a href={@user_bio.blog}><%= @user_bio.blog %></a></p>
-			<p>Twitter Handle: <%= @user_bio.twitter_username %></p>
-			<p>Company: <%= @user_bio.company %></p>
-		</div>
+	<div class="dflex">
+		<p>Repos: <%= @user_bio.profile_stats[:public_repos] %></p>
+		<p>Followers: <%= @user_bio.profile_stats[:followers] %></p>
+		<p>Following: <%= @user_bio.profile_stats[:following] %></p>
+	</div>
+
+	<div class="cols">
+		<p><%= @user_bio.location %></p>
+		<p><a href={@user_bio.blog}><%= @user_bio.blog %></a></p>
+		<p><%= @user_bio.twitter_username %></p>
+		<p><%= @user_bio.company %></p>
 	</div>
 </div>

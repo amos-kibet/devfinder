@@ -34,7 +34,7 @@ defmodule Devfinder.Http do
     end
   end
 
-  def get_user_data(username) do
+  def get_user_bio(username) do
     case find_dev(username) do
       {:ok, bio} ->
         dev_bio = %User{
