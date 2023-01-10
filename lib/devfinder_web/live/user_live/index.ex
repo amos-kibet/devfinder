@@ -7,15 +7,17 @@ defmodule DevfinderWeb.UserLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    user_bio = get_user_bio("octocat")
-    {:ok, assign(socket, :user_bio, user_bio)}
+    {:ok, assign(socket, :user_bio, get_user_bio("octocat"))}
   end
 
   @impl true
   def handle_event("search", %{"user_bio" => %{"username" => username}} = _user_params, socket) do
     case get_user_bio(username) do
       :not_found ->
-        {:noreply, socket}
+        {:noreply,
+         socket
+         |> put_flash(:info, "Username not found! Try another")
+         |> assign(:user_bio, get_user_bio("octocat"))}
 
       user_bio ->
         {:noreply, assign(socket, :user_bio, user_bio)}
