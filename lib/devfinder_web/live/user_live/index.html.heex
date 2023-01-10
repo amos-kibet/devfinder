@@ -23,18 +23,9 @@
 		<p>Bio: <%= @user_bio.bio %></p>
 
 		<div class="dflex">
-			<p>
-			Repos:
-				<span> <%= @user_bio.profile_stats[:public_repos] %></span>
-			</p>
-			<p>
-				Followers:
-				<span><%= @user_bio.profile_stats[:followers] %></span>
-			</p>
-			<p>
-				Following:
-				<span> <%= @user_bio.profile_stats[:following] %></span>
-			</p>
+			<p>Repos: <%= @user_bio.profile_stats[:public_repos] %></p>
+			<p>Followers: <%= @user_bio.profile_stats[:followers] %></p>
+			<p>Following: <%= @user_bio.profile_stats[:following] %></p>
 		</div>
 
 		<div class="cols">
