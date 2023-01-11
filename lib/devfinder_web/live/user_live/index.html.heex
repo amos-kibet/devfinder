@@ -1,4 +1,4 @@
-<div class="s">
+<div class="gf">
 	<div class="mx-[355px] mt-[36px] bg-[#FEFEFE] flex justify-center w-[730px] shadow-md">
 		<.form
 			let={f}
@@ -34,24 +34,70 @@
 			<img class="rounded-full" src={@user_bio.avatar_url} alt="developer profile avatar">
 		</div>
 		<div class="ml-[202px]">
-			<h2 class="text-[#2B3442]">
+		<div class="flex justify-between items-center w-full">
+			<h1 class="text-[#2B3442] font-bold text-xl tracking-wider">
 			<%= @user_bio.full_name %>
-			</h2>
+			</h1>
+			<p>
+				Joined <%= @user_bio.created_at %>
+			</p>
+		</div>
+			<p class="text-blue-600 text-base mt-1">
+				<a href={@user_bio.profile_url}><%= @user_bio.username %></a>
+			</p>
 
-			<p><a href={@user_bio.profile_url}><%= @user_bio.username %></a></p>
-			<p><%= @user_bio.bio %></p>
+			<p class="text-gray-400 text-base mt-4">
+				<%= @user_bio.bio %>
+			</p>
 
-			<div class="dflex">
-				<p>Repos: <%= @user_bio.profile_stats[:public_repos] %></p>
-				<p>Followers: <%= @user_bio.profile_stats[:followers] %></p>
-				<p>Following: <%= @user_bio.profile_stats[:following] %></p>
+			<div class="py-4 rounded-lg mt-5 flex justify-around bg-gray-100">
+				<div>
+					<small class="dark:text-gray-300 text-slate-900 text-lg">
+						Repos
+					</small>
+					<p class="font-bold text-xl">
+						<%= @user_bio.profile_stats[:public_repos] %>
+					</p>
+				</div>
+				<div>
+					<small class="dark:text-gray-300 text-slate-900 text-lg">
+						Repos
+					</small>
+					<p class="font-bold text-xl">
+						<%= @user_bio.profile_stats[:followers] %>
+					</p>
+				</div>
+				<div>
+					<small class="dark:text-gray-300 text-slate-900 text-lg">
+						Repos
+					</small>
+					<p class="font-bold text-xl">
+						<%= @user_bio.profile_stats[:following] %>
+					</p>
+				</div>
 			</div>
 
-			<div class="cols">
-				<p><%= @user_bio.location %></p>
-				<p><a href={@user_bio.blog}><%= @user_bio.blog %></a></p>
-				<p><%= @user_bio.twitter_username %></p>
-				<p><%= @user_bio.company %></p>
+			<div class="grid grid-cols-2 mt-8 gap-2">
+				<div class="flex items-center">
+					<p class="ml-3 text-gray-500">
+						<%= @user_bio.location %>
+					</p>
+				</div>
+				<div class="flex items-center">
+					<p class="ml-3 text-gray-500">
+						<a href={@user_bio.blog}><%= @user_bio.blog %></a>
+					</p>
+				</div>
+				<div class="flex items-center">
+					<p class="ml-3 text-gray-500">
+						<%= @user_bio.twitter_username %>
+					</p>
+				</div>
+				<div class="flex items-center">
+					<p class="ml-3 text-gray-500">
+						<%= @user_bio.company %>
+					</p>
+				</div>
 			</div>
 		</div>
 	</div>
