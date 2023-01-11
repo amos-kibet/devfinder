@@ -1,39 +1,58 @@
-<div class="mx-[355px] mt-[36px]">
-	<.form
-	  let={f}
-	  for={:user_bio},
-      id="search-form"
-      phx-submit="search">
+<div class="s">
+	<div class="mx-[355px] mt-[36px] bg-[#FEFEFE] flex justify-center w-[730px] shadow-md">
+		<.form
+			let={f}
+			for={:user_bio},
+			id="search-form"
+			phx-submit="search"
+		>
 
-      <%= text_input f, :username, phx_debounce: "blur" %>
-      <%= error_tag  f, :username %>
+		<%= text_input f, :username, phx_debounce: "blur" %>
+		<%= error_tag  f, :username %>
 
-      <%= submit "Search", phx_disable_with: "Searching..." %>
-	  <%= error_tag f, :get_user %>
-    </.form>
-</div>
-
-<div class="bg-[#FEFEFE] shadow-sm absolute w-[730px] h-[419px] mx-[355px] mb-[170px] rounded-[15px] mt-[24px]">
-	<div class="w-[117px] h-[117px] pl-[48px] pt-[48px]">
-		<img class="rounded-full" src={@user_bio.avatar_url} alt="developer profile avatar">
-	</div>
-	<h2 class="text-[#2B3442]">
-		<%= @user_bio.full_name %>
-	</h2>
-
-	<p><a href={@user_bio.profile_url}><%= @user_bio.username %></a></p>
-	<p><%= @user_bio.bio %></p>
-
-	<div class="dflex">
-		<p>Repos: <%= @user_bio.profile_stats[:public_repos] %></p>
-		<p>Followers: <%= @user_bio.profile_stats[:followers] %></p>
-		<p>Following: <%= @user_bio.profile_stats[:following] %></p>
+		<%= submit "Search", phx_disable_with: "Searching..." %>
+		<%= error_tag f, :get_user %>
+		</.form>
 	</div>
 
-	<div class="cols">
-		<p><%= @user_bio.location %></p>
-		<p><a href={@user_bio.blog}><%= @user_bio.blog %></a></p>
-		<p><%= @user_bio.twitter_username %></p>
-		<p><%= @user_bio.company %></p>
+	<div class="justify-center w-[730px] mx-[355px] mt-[36px] shadow-md">
+		<div
+			class="bg-[#FEFEFE] md:px-2 py-3 flex rounded-[15px]">
+			<img class="scale-75 md:scale-100 px[32px] mx-[15px]" src="/images/icon-search.svg">
+			<input type="text" placeholder="Search GitHub username..."
+				class="mr-[100px] ml-[15px] border-none w-full text-[#1F1F1F] placeholder-[#1F1F1F]/70 font-['Space Mono'] font-normal px-[48px]">
+			<button class="rounded-[10px] bg-[#0079FF] opacity-100">
+				<div class="text-xs md:text-base lg:text-lg font-semibold text-white py-[10px] px-2 md:px-5">
+					Search
+				</div>
+			</button>
+		</div>
+	</div>
+
+	<div class="bg-[#FEFEFE] absolute w-[730px] h-[419px] mx-[355px] mb-[170px] rounded-[15px] mt-[24px] shadow-md">
+		<div class="w-[117px] h-[117px] pl-[48px] pt-[48px]">
+			<img class="rounded-full" src={@user_bio.avatar_url} alt="developer profile avatar">
+		</div>
+		<div class="ml-[202px]">
+			<h2 class="text-[#2B3442]">
+			<%= @user_bio.full_name %>
+			</h2>
+
+			<p><a href={@user_bio.profile_url}><%= @user_bio.username %></a></p>
+			<p><%= @user_bio.bio %></p>
+
+			<div class="dflex">
+				<p>Repos: <%= @user_bio.profile_stats[:public_repos] %></p>
+				<p>Followers: <%= @user_bio.profile_stats[:followers] %></p>
+				<p>Following: <%= @user_bio.profile_stats[:following] %></p>
+			</div>
+
+			<div class="cols">
+				<p><%= @user_bio.location %></p>
+				<p><a href={@user_bio.blog}><%= @user_bio.blog %></a></p>
+				<p><%= @user_bio.twitter_username %></p>
+				<p><%= @user_bio.company %></p>
+			</div>
+		</div>
 	</div>
 </div>

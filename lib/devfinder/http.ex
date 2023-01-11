@@ -12,7 +12,7 @@ defmodule Devfinder.Http do
 
   @url "https://api.github.com/users/"
 
-  defp find_dev(username) when is_binary(username) do
+  def find_dev(username) when is_binary(username) do
     url = gen_username_url(username)
 
     result =
@@ -25,6 +25,7 @@ defmodule Devfinder.Http do
           response
           |> Map.get(:body)
           |> Jason.decode()
+          |> IO.inspect(label: "[HTTP FIND_DEV RESULTS]")
         else
           {:error, :not_found}
         end
