@@ -1,4 +1,4 @@
-<div class="mx-[355px] mt-[36px]">
+<div class="mx-[355px] mt-[36px] bg-[#FEFEFE] flex justify-center w-[730px]">
 	<.form
 	  let={f}
 	  for={:user_bio},
@@ -11,6 +11,20 @@
       <%= submit "Search", phx_disable_with: "Searching..." %>
 	  <%= error_tag f, :get_user %>
     </.form>
+</div>
+
+<div class="justify-center w-[730px] mx-[355px] mt-[36px]">
+	<div
+		class="bg-[#FEFEFE] md:px-2 py-3 flex rounded-[15px]">
+		<img class="scale-75 md:scale-100 px[32px]" src={Routes.static_url(@socket, "/images/icon-search.svg" )}>
+		<input type="text" placeholder="Search GitHub Username..."
+			class="border-none w-full text-[#1F1F1F] placeholder-[#1F1F1F]/70 font-['Space Mono'] font-normal px-[48px]">
+		<button class="rounded-[10px] bg-[#0079FF] opacity-100">
+			<div class="text-xs md:text-base lg:text-lg font-semibold text-white py-[10px] px-2 md:px-5">
+				Search
+			</div>
+		</button>
+	</div>
 </div>
 
 <div class="bg-[#FEFEFE] shadow-sm absolute w-[730px] h-[419px] mx-[355px] mb-[170px] rounded-[15px] mt-[24px]">
