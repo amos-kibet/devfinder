@@ -1,21 +1,20 @@
 defmodule DevfinderWeb.UserLiveTest do
-  use DevfinderWeb.ConnCase
+  use DevfinderWeb.ConnCase, async: true
 
-  # import Phoenix.LiveViewTest
+  import Phoenix.LiveViewTest
   import Devfinder.CoreFixtures
 
-  @username "octocat"
+  describe "Connected & Disconnected State" do
+    test "pre-connected", %{conn: conn} do
+      conn = get(conn, "/")
+      assert html_response(conn, 200) =~ "Repos"
+    end
 
-  defp create_user(_) do
-    user = user_fixture(@username)
-    %{user: user}
-  end
+    test "connected mount", %{conn: conn} do
+      {:ok, view, html} = live(conn, "/")
 
-  describe "Search" do
-    setup [:create_user]
-
-    test "searches a user on GitHub with the provided username", %{conn: _conn} do
-      # TODO: write tests
+      assert html =~ "Repos"
+      assert render(view) =~ "Repos"
     end
   end
 end
