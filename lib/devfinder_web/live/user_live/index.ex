@@ -12,49 +12,41 @@ defmodule DevfinderWeb.UserLive.Index do
     {:ok, assign(socket, :user_bio, get_user_bio("octocat"))}
   end
 
-  def get_user_bio(username) do
-    Core.retrieve_user_bio(username)
-    |> IO.inspect(label: "[USER_LIVE GET_USER_BIO]")
-  end
-
   @impl true
   def handle_info(:retrieve_user_bio, socket) do
-    IO.inspect(socket, label: "[HANDLE_INFO SOCKET]")
-
-    user_bio = Core.retrieve_user_bio(socket.assigns.user_bio.username)
-    IO.inspect(user_bio, label: "[HANDLE_INFO USER_BIO]")
+    Core.retrieve_user_bio(socket.assigns.user_bio.username)
 
     {:noreply, socket}
   end
 
-  # @impl true
-  # def handle_event("search", %{"user_bio" => %{"username" => username}} = _user_params, socket) do
-  #   case get_user_bio(username) do
-  #     :not_found ->
-  #       {:noreply,
-  #        socket
-  #        |> put_flash(:info, "Username not found! Try another")
-  #        |> assign(:user_bio, get_user_bio("octocat"))}
+  @impl true
+  def handle_event("search", %{"user_bio" => %{"username" => username}} = _user_params, socket) do
+    case get_user_bio(username) do
+      :not_found ->
+        {:noreply,
+         socket
+         |> put_flash(:info, "Username not found! Try another")
+         |> assign(:user_bio, get_user_bio("octocat"))}
 
-  #     user_bio ->
-  #       {:noreply, assign(socket, :user_bio, user_bio)}
-  #   end
-  # end
+      user_bio ->
+        {:noreply, assign(socket, :user_bio, user_bio)}
+    end
+  end
 
-  # def get_user_bio(username) do
-  #   case Core.get_user_bio(username) do
-  #     {:error, :finch_error} ->
-  #       Logger.error("Something went wrong! Retrying")
+  def get_user_bio(username) do
+    case Core.get_user_bio(username) do
+      {:error, :finch_error} ->
+        Logger.error("Something went wrong! Retrying")
 
-  #       # FIXME: use recursion here as below
-  #       get_user_bio(username)
+        # FIXME: use recursion here for retries, but keep in mind not being rate-limited
+        get_user_bio(username)
 
-  #     {:error, :not_found} ->
-  #       Logger.info("Username not found! Try another")
-  #       :not_found
+      {:error, :not_found} ->
+        Logger.info("Username not found! Try another")
+        :not_found
 
-  #     {:ok, user} ->
-  #       user
-  #   end
-  # end
+      {:ok, user} ->
+        user
+    end
+  end
 end
