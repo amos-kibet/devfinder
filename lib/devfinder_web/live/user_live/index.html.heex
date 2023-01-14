@@ -1,31 +1,28 @@
 <div class="container">
-	<div class="mx-[355px] mt-[36px] bg-[#FEFEFE] flex justify-center w-[730px] shadow-md">
+	<div class="justify-center w-[730px] mx-[355px] mt-[36px] shadow-md">
 		<.form
 			let={f}
 			for={:user_bio},
 			id="search-form"
 			phx-submit="search"
+			class="bg-[#FEFEFE] md:px-2 py-3 flex rounded-[15px]"
 		>
 
-		<%= text_input f, :username, phx_debounce: "blur" %>
-		<%= error_tag  f, :username %>
+			<img class="mt-[10px] px[15px] mx-[15px] w-[24px] h-[24px]" src={Routes.static_path(@socket, "/images/icon-search.svg")}>
 
-      <%= submit "Search", phx_disable_with: "Searching..." %>
-	  <%= error_tag f, :get_user %>
-    </.form>
-</div>
-	<div class="justify-center w-[730px] mx-[355px] mt-[36px] shadow-md">
-		<div
-			class="bg-[#FEFEFE] md:px-2 py-3 flex rounded-[15px]">
-			<img class="scale-75 md:scale-100 px[32px] mx-[15px]" src={Routes.static_path(@socket, "/images/icon-search.svg")}>
-			<input type="text" placeholder="Search GitHub username..."
-				class="mr-[100px] ml-[15px] border-none w-full text-[#1F1F1F] placeholder-[#1F1F1F]/70 font-['Space Mono'] font-normal px-[48px]">
-			<button class="rounded-[10px] bg-[#0079FF] opacity-100">
-				<div class="text-xs md:text-base lg:text-lg font-semibold text-white py-[10px] px-2 md:px-5">
-					Search
-				</div>
-			</button>
-		</div>
+			<%= text_input f, :username,
+				phx_debounce: "blur",
+				placeholder: "Search GitHub username...",
+				class: "mr-[100px] ml-[10px] pl-[5px] border-none w-full text-[#1F1F1F] placeholder-[#1F1F1F]/70 font-['Space Mono'] font-normal px-[48px]"
+			%>
+			<%= error_tag  f, :username %>
+
+			<%= submit "Search",
+				phx_disable_with: "Searching...",
+				class: "rounded-[10px] bg-[#0079FF] opacity-100 text-xs md:text-base lg:text-lg font-semibold text-white py-[10px] px-2 md:px-5"
+			%>
+			<%= error_tag f, :get_user %>
+		</.form>
 	</div>
 
 	<div class="bg-[#FEFEFE] absolute w-[730px] h-[419px] mx-[355px] mb-[170px] rounded-[15px] mt-[24px] shadow-md">
