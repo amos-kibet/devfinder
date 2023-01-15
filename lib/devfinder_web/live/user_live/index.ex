@@ -18,10 +18,7 @@ defmodule DevfinderWeb.UserLive.Index do
 
   @impl true
   def handle_info(:retrieve_user_bio, socket) do
-    IO.inspect(socket, label: "[HANDLE_INFO SOCKET]")
-
-    user_bio = Core.retrieve_user_bio(socket.assigns.user_bio.username)
-    IO.inspect(user_bio, label: "[HANDLE_INFO USER_BIO]")
+    Core.retrieve_user_bio(socket.assigns.user_bio.username)
 
     {:noreply, socket}
   end
@@ -55,7 +52,7 @@ defmodule DevfinderWeb.UserLive.Index do
       {:error, :finch_error} ->
         Logger.error("Something went wrong! Retrying")
 
-        # FIXME: use recursion here as below
+        # FIXME: use recursion here for retries, but keep in mind not being rate-limited
         get_user_bio(username)
 
       {:error, :not_found} ->

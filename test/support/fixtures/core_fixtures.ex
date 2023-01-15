@@ -8,7 +8,7 @@ defmodule Devfinder.CoreFixtures do
   Generate a user.
   """
   def user_fixture(username) do
-    {:ok, user} = Devfinder.Core.get_user(username)
+    {:ok, user} = Devfinder.Core.get_user_bio(username)
     user
   end
 end
