@@ -11,7 +11,6 @@ defmodule DevfinderWeb.UserLive.Index do
      socket
      |> assign(:current_theme, "system")
      |> assign(:user_bio, get_user_bio("octocat"))}
-    |> IO.inspect(label: "[MOUNT SOCKET")
   end
 
   @impl true

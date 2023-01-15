@@ -5,7 +5,6 @@ defmodule Devfinder.Http do
     - get GitHub user profile data using **Finch** HTTP client
     - process the received bio data & prepare the data needed by the controller
   """
-
   require Logger
 
   alias Devfinder.Http.User
@@ -25,7 +24,6 @@ defmodule Devfinder.Http do
           response
           |> Map.get(:body)
           |> Jason.decode()
-          |> IO.inspect(label: "[HTTP FIND_DEV RESULTS]")
         else
           {:error, :not_found}
         end
