@@ -9,7 +9,7 @@ defmodule DevfinderWeb.UserLive.Index do
   def mount(_params, _session, socket) do
     {:ok,
      socket
-     |> assign(:current_theme, "light")
+     |> assign(:current_theme, "system")
      |> assign(:user_bio, get_user_bio("octocat"))}
     |> IO.inspect(label: "[MOUNT SOCKET")
   end
@@ -29,12 +29,10 @@ defmodule DevfinderWeb.UserLive.Index do
   end
 
   def handle_event("toggle_current_theme", _params, socket) do
-    case socket.assigns.current_theme do
-      "dark" ->
-        {:noreply, assign(socket, :current_theme, "light")}
-
-      "light" ->
-        {:noreply, assign(socket, :current_theme, "dark")}
+    if socket.assigns.current_theme == "dark" do
+      {:noreply, assign(socket, :current_theme, "light")}
+    else
+      {:noreply, assign(socket, :current_theme, "dark")}
     end
   end
 
