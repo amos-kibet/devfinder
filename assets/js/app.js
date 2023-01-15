@@ -24,6 +24,41 @@ import { Socket } from "phoenix";
 import { LiveSocket } from "phoenix_live_view";
 import topbar from "../vendor/topbar";
 
+// import theme switcher file
+import { toDarkMode, toLightMode, toSystemMode } from "./theme";
+
+window.toDarkMode = toDarkMode;
+window.toLightMode = toLightMode;
+window.toSystemMode = toSystemMode;
+
+function updateTheme() {
+  if (!("theme" in localStorage)) {
+    localStorage.theme = "system";
+  }
+
+  switch (localStorage.theme) {
+    case "system":
+      if (window.matchMedia("(prefers-color-scheme: dark").matches) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+      document.documentElement.setAttribute("color-theme", "system");
+      break;
+    case "dark":
+      document.documentElement.classList.add("dark");
+      document.documentElement.setAttribute("color-theme", "dark");
+      break;
+    case "light":
+      document.documentElement.classList.remove("dark");
+      document.documentElement.setAttribute("color-theme", "light");
+      break;
+  }
+}
+
+// Listen to chnage theme event
+window.addEventListener("phx:toggle_current_theme", (info) => updateTheme());
+
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content");
