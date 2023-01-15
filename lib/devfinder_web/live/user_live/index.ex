@@ -7,20 +7,11 @@ defmodule DevfinderWeb.UserLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    send(self(), :retrieve_user_bio)
-
     {:ok,
      socket
      |> assign(:current_theme, "light")
      |> assign(:user_bio, get_user_bio("octocat"))}
     |> IO.inspect(label: "[MOUNT SOCKET")
-  end
-
-  @impl true
-  def handle_info(:retrieve_user_bio, socket) do
-    Core.retrieve_user_bio(socket.assigns.user_bio.username)
-
-    {:noreply, socket}
   end
 
   @impl true
