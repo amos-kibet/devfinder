@@ -7,7 +7,20 @@ defmodule DevfinderWeb.UserLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, :user_bio, get_user_bio("octocat"))}
+    send(self(), :retrieve_user_bio)
+
+    {:ok,
+     socket
+     |> assign(:current_theme, "light")
+     |> assign(:user_bio, get_user_bio("octocat"))}
+    |> IO.inspect(label: "[MOUNT SOCKET")
+  end
+
+  @impl true
+  def handle_info(:retrieve_user_bio, socket) do
+    Core.retrieve_user_bio(socket.assigns.user_bio.username)
+
+    {:noreply, socket}
   end
 
   @impl true
@@ -24,11 +37,23 @@ defmodule DevfinderWeb.UserLive.Index do
     end
   end
 
+  def handle_event("toggle_current_theme", _params, socket) do
+    case socket.assigns.current_theme do
+      "dark" ->
+        {:noreply, assign(socket, :current_theme, "light")}
+
+      "light" ->
+        {:noreply, assign(socket, :current_theme, "dark")}
+    end
+  end
+
   def get_user_bio(username) do
     case Core.get_user_bio(username) do
       {:error, :finch_error} ->
         Logger.error("Something went wrong! Retrying")
-        Core.get_user_bio(username)
+
+        # FIXME: use recursion here for retries, but keep in mind not being rate-limited
+        get_user_bio(username)
 
       {:error, :not_found} ->
         Logger.info("Username not found! Try another")

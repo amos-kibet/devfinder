@@ -4,8 +4,15 @@
 let plugin = require("tailwindcss/plugin");
 
 module.exports = {
+  darkMode: "class",
   content: ["./js/**/*.js", "../lib/*_web.ex", "../lib/*_web/**/*.*ex"],
   theme: {
+    screens: {
+      sm: "480px",
+      md: "768px",
+      lg: "976px",
+      xl: "144px",
+    },
     extend: {},
   },
   plugins: [
