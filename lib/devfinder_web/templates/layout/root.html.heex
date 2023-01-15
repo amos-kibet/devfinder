@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -10,9 +10,6 @@
     <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
   </head>
   <body class="bg-[#F6F8FF] dark:bg-[#141D2F]">
-    <%!-- <header class="mx-[355px] pt-[50px] font-['Space Mono'] font-[700] text-[26px] leading-[36px] text-[#222731]">
-			<h2>devfinder</h2>
-    </header> --%>
     <%= @inner_content %>
   </body>
 </html>
