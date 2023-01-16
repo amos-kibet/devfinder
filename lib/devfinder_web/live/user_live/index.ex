@@ -1,6 +1,9 @@
 defmodule DevfinderWeb.UserLive.Index do
   use DevfinderWeb, :live_view
 
+  alias Phoenix.LiveView
+  alias LiveView.JS
+
   require Logger
 
   alias Devfinder.Core
