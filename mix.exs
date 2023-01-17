@@ -50,7 +50,8 @@ defmodule Devfinder.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:finch, "~> 0.13.0"},
-      {:tailwind, "~> 0.1.9", runtime: Mix.env() == :dev}
+      {:tailwind, "~> 0.1.9", runtime: Mix.env() == :dev},
+      {:libcluster, "~> 3.3"}
     ]
   end
 
