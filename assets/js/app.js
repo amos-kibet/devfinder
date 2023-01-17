@@ -31,39 +31,26 @@ window.toDarkMode = toDarkMode;
 window.toLightMode = toLightMode;
 window.toSystemMode = toSystemMode;
 
-function updateTheme() {
-  if (!("theme" in localStorage)) {
-    localStorage.theme = "system";
-  }
+// theme toggler hook
+const hooks = {
+  CurrentThemeToggle: {
+    updated() {
+      const theme = this.el.dataset.theme;
+      const html = document.querySelector("html");
 
-  switch (localStorage.theme) {
-    case "system":
-      if (window.matchMedia("(prefers-color-scheme: dark").matches) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-      document.documentElement.setAttribute("color-theme", "system");
-      break;
-    case "dark":
-      document.documentElement.classList.add("dark");
-      document.documentElement.setAttribute("color-theme", "dark");
-      break;
-    case "light":
-      document.documentElement.classList.remove("dark");
-      document.documentElement.setAttribute("color-theme", "light");
-      break;
-  }
-}
-
-// Listen to chnage theme event
-window.addEventListener("phx:toggle_current_theme", (info) => updateTheme());
+      html.classList.remove("dark");
+      html.classList.remove("light");
+      html.classList.add(theme);
+    },
+  },
+};
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content");
 let liveSocket = new LiveSocket("/live", Socket, {
   params: { _csrf_token: csrfToken },
+  hooks: hooks,
 });
 
 // Show progress bar on live navigation and form submits
