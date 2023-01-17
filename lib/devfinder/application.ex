@@ -7,6 +7,8 @@ defmodule Devfinder.Application do
 
   @impl true
   def start(_type, _args) do
+    topologies = Application.get_env(:libcluster, :topologies) || []
+
     children = [
       # Start the Ecto repository
       Devfinder.Repo,
@@ -19,6 +21,8 @@ defmodule Devfinder.Application do
       # Start a worker by calling: Devfinder.Worker.start_link(arg)
       # {Devfinder.Worker, arg}
 
+      # setup for clustering
+      {Cluster.Supervisor, [topologies, [name: Devfinder.ClusterSupervisor]]},
       {Finch, name: Http}
     ]
 
