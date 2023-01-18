@@ -10,7 +10,7 @@ defmodule DevfinderWeb.UserLive.Index do
     {:ok,
      socket
      |> assign(:current_theme, "light")
-     |> assign(:user_bio, get_user_bio("octocat"))}
+     |> assign(:user_bio, default_user_bio())}
   end
 
   @impl true
@@ -19,8 +19,8 @@ defmodule DevfinderWeb.UserLive.Index do
       :not_found ->
         {:noreply,
          socket
-         |> put_flash(:info, "Username not found! Try another")
-         |> assign(:user_bio, get_user_bio("octocat"))}
+         |> put_flash(:info, "Username not found!")
+         |> assign(:user_bio, default_user_bio())}
 
       user_bio ->
         {:noreply, assign(socket, :user_bio, user_bio)}
@@ -50,5 +50,25 @@ defmodule DevfinderWeb.UserLive.Index do
       {:ok, user} ->
         user
     end
+  end
+
+  defp default_user_bio do
+    %{
+      full_name: "Amos Kibet",
+      avatar_url: "https://avatars.githubusercontent.com/u/50356453?v=4",
+      username: "amos-kibet",
+      profile_url: "https://github.com/amos-kibet",
+      bio: "Fullstack Elixir developer",
+      location: "Nairobi, Kenya",
+      twitter_username: "@amos_kibet",
+      company: "Amozone Labs",
+      blog: "https://www.amozone.blog",
+      created_at: "7 May 2019",
+      profile_stats: %{
+        public_repos: "107",
+        followers: "32",
+        following: "156"
+      }
+    }
   end
 end
