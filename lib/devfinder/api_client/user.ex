@@ -1,4 +1,4 @@
-defmodule Devfinder.Http.User do
+defmodule Devfinder.ApiClient.User do
   @moduledoc false
 
   defstruct avatar_url: nil,

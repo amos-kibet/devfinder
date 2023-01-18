@@ -23,6 +23,12 @@ config :devfinder, DevfinderWeb.Endpoint,
 # In test we don't send emails.
 config :devfinder, Devfinder.Mailer, adapter: Swoosh.Adapters.Test
 
+# Use mock ApiClient on test env
+config :devfinder, api_client: Devfinder.ApiClientMock
+
+# Use mock Http client on test env
+config :devfinder, http_client: Devfinder.HttpMock
+
 # Print only warnings and errors during test
 config :logger, level: :warn
 

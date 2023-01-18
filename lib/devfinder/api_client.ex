@@ -1,40 +1,18 @@
-defmodule Devfinder.Http do
+defmodule Devfinder.ApiClient do
   @moduledoc """
   http context for interacting with GitHub API in the following ways:
 
     - get GitHub user profile data using **Finch** HTTP client
     - process the received bio data & prepare the data needed by the controller
   """
-  require Logger
+  alias Devfinder.ApiClient.User
 
-  alias Devfinder.Http.User
+  @behaviour Devfinder.ApiClientBehaviour
 
-  @url "https://api.github.com/users/"
-
-  defp find_dev(username) when is_binary(username) do
-    url = gen_username_url(username)
-
-    result =
-      Finch.build(:get, url)
-      |> Finch.request(Http)
-
-    case result do
-      {:ok, %Finch.Response{} = response} ->
-        if response.status == 200 do
-          response
-          |> Map.get(:body)
-          |> Jason.decode()
-        else
-          {:error, :not_found}
-        end
-
-      {:error, _error} ->
-        {:error, :finch_error}
-    end
-  end
+  def http_adapter, do: Application.get_env(:devfinder, :http_client)
 
   def get_user_bio(username) do
-    case find_dev(username) do
+    case http_adapter().find_dev(username) do
       {:ok, bio} ->
         dev_bio = %User{
           full_name: bio["name"],
@@ -62,9 +40,23 @@ defmodule Devfinder.Http do
       {:error, _error} ->
         {:error, :finch_error}
     end
-  end
 
-  defp gen_username_url(username) do
-    @url <> username
+    # dev_bio = %User{
+    #   full_name: "Amos Kibet",
+    #   avatar_url: "https://avatars.githubusercontent.com/u/583231?v=4",
+    #   username: "amos-kibet",
+    #   profile_url: "https://github.com/amos-kibet",
+    #   bio: "Elixir developer",
+    #   location: "Nairobi, Kenya",
+    #   twitter_username: "@amos_kibet",
+    #   company: nil,
+    #   blog: nil,
+    #   created_at: DateTime.utc_now() |> DateTime.to_date(),
+    #   profile_stats: %{
+    #     public_repos: "100",
+    #     followers: "100",
+    #     following: "100"
+    #   }
+    # }
   end
 end
