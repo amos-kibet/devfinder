@@ -6,7 +6,7 @@ defmodule Devfinder.HttpAdapter do
   @url "https://api.github.com/users/"
 
   def find_dev(username) when is_binary(username) do
-    url = process_url(username)
+    url = process_url(@url, username)
 
     result =
       Finch.build(:get, url)
@@ -29,7 +29,7 @@ defmodule Devfinder.HttpAdapter do
     end
   end
 
-  defp process_url(username) do
-    @url <> username
+  defp process_url(url, opts) do
+    url <> opts
   end
 end
