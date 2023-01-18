@@ -1,9 +1,6 @@
 defmodule DevfinderWeb.UserLive.Index do
   use DevfinderWeb, :live_view
 
-  alias Phoenix.LiveView
-  alias LiveView.JS
-
   require Logger
 
   alias Devfinder.Core
@@ -12,7 +9,7 @@ defmodule DevfinderWeb.UserLive.Index do
   def mount(_params, _session, socket) do
     {:ok,
      socket
-     |> assign(:current_theme, "system")
+     |> assign(:current_theme, "light")
      |> assign(:user_bio, get_user_bio("octocat"))}
   end
 
