@@ -15,6 +15,8 @@ defmodule DevfinderWeb.UserLive.Index do
 
   @impl true
   def handle_event("search", %{"user_bio" => %{"username" => username}} = _user_params, socket) do
+    Logger.info("username: #{inspect(username)}")
+
     case get_user_bio(username) do
       :not_found ->
         {:noreply,
@@ -28,6 +30,8 @@ defmodule DevfinderWeb.UserLive.Index do
   end
 
   def handle_event("toggle_current_theme", _params, socket) do
+    Logger.info("theme toggled")
+
     if socket.assigns.current_theme == "dark" do
       {:noreply, assign(socket, :current_theme, "light")}
     else
@@ -53,6 +57,8 @@ defmodule DevfinderWeb.UserLive.Index do
   end
 
   defp default_user_bio do
+    Logger.info("default user bio loaded")
+
     %{
       full_name: "Amos Kibet",
       avatar_url: "https://avatars.githubusercontent.com/u/50356453?v=4",
