@@ -2,14 +2,11 @@ defmodule DevfinderWeb.UserLiveTest do
   use DevfinderWeb.ConnCase, async: true
 
   import Phoenix.LiveViewTest
-  import Devfinder.CoreFixtures
 
-  @username "octocat"
-
-  defp get_dev_bio(_) do
-    user = user_fixture(@username)
-    %{user: user}
-  end
+  # defp get_dev_bio(_) do
+  #   user = user_fixture(@username)
+  #   %{user: user}
+  # end
 
   describe "Pre-connected & connected state" do
     test "pre-connected", %{conn: conn} do
@@ -26,11 +23,8 @@ defmodule DevfinderWeb.UserLiveTest do
   end
 
   describe "Search" do
-    setup [:get_dev_bio]
-
     test "get_dev_bio/1 returns GitHub profile of a user with the provided username", %{
-      conn: conn,
-      user: user
+      conn: conn
     } do
       {:ok, view, _html} = live(conn, "/")
 

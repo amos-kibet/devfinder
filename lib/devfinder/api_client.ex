@@ -1,10 +1,5 @@
 defmodule Devfinder.ApiClient do
-  @moduledoc """
-  http context for interacting with GitHub API in the following ways:
-
-    - get GitHub user profile data using **Finch** HTTP client
-    - process the received bio data & prepare the data needed by the controller
-  """
+  @moduledoc false
   alias Devfinder.ApiClient.User
 
   @behaviour Devfinder.ApiClientBehaviour
@@ -40,23 +35,5 @@ defmodule Devfinder.ApiClient do
       {:error, _error} ->
         {:error, :finch_error}
     end
-
-    # dev_bio = %User{
-    #   full_name: "Amos Kibet",
-    #   avatar_url: "https://avatars.githubusercontent.com/u/583231?v=4",
-    #   username: "amos-kibet",
-    #   profile_url: "https://github.com/amos-kibet",
-    #   bio: "Elixir developer",
-    #   location: "Nairobi, Kenya",
-    #   twitter_username: "@amos_kibet",
-    #   company: nil,
-    #   blog: nil,
-    #   created_at: DateTime.utc_now() |> DateTime.to_date(),
-    #   profile_stats: %{
-    #     public_repos: "100",
-    #     followers: "100",
-    #     following: "100"
-    #   }
-    # }
   end
 end
