@@ -1,5 +1,5 @@
-<div class="md:w-[520px] lg:w-[730px] mx-[250px] w-[730px]">
-	<div class="mx-[355px] w-[730px] pt-[50px] pb-[10px] py-2 px-4 flex justify-between items-center">
+<div class="md:mx-[97px] md:w-[573px] lg:mx-[250px] lg:w-[730px]">
+	<div class="md:mx-[97px] md:w-[573px] lg:mx-[355px] lg:w-[730px] pt-[50px] pb-[10px] py-2 px-4 flex justify-between items-center">
 		<h2 class="font-['Space Mono'] font-[700] text-[26px] leading-[36px] text-[#222731] dark:text-[#FFFFFF]">
 			devfinder
 		</h2>
@@ -38,7 +38,7 @@
 		</div>
 	</div>
 
-	<div class="justify-center w-[730px] mx-[355px] mt-[36px] shadow-md">
+	<div class="justify-center md:mx-[97px] md:w-[573px] lg:mx-[355px] lg:w-[730px] mt-[36px] shadow-md">
 		<.form
 			let={f}
 			for={:user_bio},
@@ -64,12 +64,12 @@
 		</.form>
 	</div>
 
-	<div class="bg-[#FEFEFE] dark:bg-[#1E2A47] w-[730px] h-[419px] mx-[355px] mb-[170px] rounded-[15px] mt-[24px] shadow-md">
+	<div class="bg-[#FEFEFE] dark:bg-[#1E2A47] md:mx-[97px] md:w-[573px] lg:mx-[355px] lg:w-[730px] h-[419px] mb-[170px] rounded-[15px] mt-[24px] shadow-md">
 		<div class="w-[117px] h-[117px] pl-[48px] pt-[48px]">
 			<img class="rounded-full" src={@user_bio.avatar_url} alt="developer profile avatar">
 		</div>
-		<div class="ml-[202px]">
-			<div class="flex justify-between items-center w-full pr-[48px]">
+		<div class="lg:ml-[202px] md:ml-[40px]">
+			<div class="flex justify-between items-center lg:w-full pr-[48px]">
 				<h1 class="text-[#2B3442] dark:text-[#FFFFFF] font-bold text-xl tracking-wider">
 				<%= @user_bio.full_name %>
 				</h1>
@@ -85,7 +85,7 @@
 				<%= @user_bio.bio %>
 			</p>
 
-			<div class="w-[480px] h-[185px]">
+			<div class="lg:w-[480px] lg:h-[185px]">
 				<div class="py-4 mr-[48px] rounded-lg mt-5 flex justify-around bg-[#F6F8FF] dark:bg-[#141D2F]">
 					<div>
 						<small class="dark:text-gray-300 text-slate-900 text-lg">
