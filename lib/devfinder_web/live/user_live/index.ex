@@ -18,6 +18,12 @@ defmodule DevfinderWeb.UserLive.Index do
     Logger.info("username: #{inspect(username)}")
 
     case get_user_bio(username) do
+      :finch_error ->
+        {:noreply,
+         socket
+         |> put_flash(:error, "Something went wrong! Kindly retry")
+         |> assign(:user_bio, default_user_bio())}
+
       :not_found ->
         {:noreply,
          socket
@@ -42,10 +48,11 @@ defmodule DevfinderWeb.UserLive.Index do
   def get_user_bio(username) do
     case Core.get_user_bio(username) do
       {:error, :finch_error} ->
-        Logger.error("Something went wrong! Retrying")
+        Logger.error("Something went wrong!")
 
         # FIXME: use recursion here for retries, but keep in mind not being rate-limited
-        get_user_bio(username)
+        # get_user_bio(username)
+        :finch_error
 
       {:error, :not_found} ->
         Logger.info("Username not found!")
