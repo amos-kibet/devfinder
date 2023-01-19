@@ -79,6 +79,12 @@ if config_env() == :prod do
       ]
     ]
 
+  # Use actual ApiClient on runtime env
+  config :devfinder, api_client: Devfinder.ApiClient
+
+  # Use actual Http client on runtime env
+  config :devfinder, http_client: Devfinder.HttpAdapter
+
   # ## Configuring the mailer
   #
   # In production you need to configure the mailer to use a different adapter.
