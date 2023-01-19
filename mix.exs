@@ -52,7 +52,8 @@ defmodule Devfinder.MixProject do
       {:finch, "~> 0.13.0"},
       {:tailwind, "~> 0.1.9", runtime: Mix.env() == :dev},
       {:libcluster, "~> 3.3"},
-      {:mox, "~> 1.0"}
+      {:mox, "~> 1.0"},
+      {:timex, "~> 3.7"}
     ]
   end
 
