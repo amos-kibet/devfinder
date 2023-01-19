@@ -15,7 +15,15 @@ defmodule DevfinderWeb.UserLive.Index do
 
   @impl true
   def handle_event("search", %{"user_bio" => %{"username" => username}} = _user_params, socket) do
+    Logger.info("username: #{inspect(username)}")
+
     case get_user_bio(username) do
+      :finch_error ->
+        {:noreply,
+         socket
+         |> put_flash(:error, "Something went wrong! Kindly retry")
+         |> assign(:user_bio, default_user_bio())}
+
       :not_found ->
         {:noreply,
          socket
@@ -28,6 +36,8 @@ defmodule DevfinderWeb.UserLive.Index do
   end
 
   def handle_event("toggle_current_theme", _params, socket) do
+    Logger.info("theme toggled")
+
     if socket.assigns.current_theme == "dark" do
       {:noreply, assign(socket, :current_theme, "light")}
     else
@@ -38,10 +48,11 @@ defmodule DevfinderWeb.UserLive.Index do
   def get_user_bio(username) do
     case Core.get_user_bio(username) do
       {:error, :finch_error} ->
-        Logger.error("Something went wrong! Retrying")
+        Logger.error("Something went wrong!")
 
         # FIXME: use recursion here for retries, but keep in mind not being rate-limited
-        get_user_bio(username)
+        # get_user_bio(username)
+        :finch_error
 
       {:error, :not_found} ->
         Logger.info("Username not found!")
@@ -53,6 +64,8 @@ defmodule DevfinderWeb.UserLive.Index do
   end
 
   defp default_user_bio do
+    Logger.info("default user bio loaded")
+
     %{
       full_name: "Amos Kibet",
       avatar_url: "https://avatars.githubusercontent.com/u/50356453?v=4",
