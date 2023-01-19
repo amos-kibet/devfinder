@@ -44,7 +44,7 @@ defmodule DevfinderWeb.UserLive.Index do
         get_user_bio(username)
 
       {:error, :not_found} ->
-        Logger.info("Username not found! Try another")
+        Logger.info("Username not found!")
         :not_found
 
       {:ok, user} ->
