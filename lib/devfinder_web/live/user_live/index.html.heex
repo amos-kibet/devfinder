@@ -64,27 +64,33 @@
 		</.form>
 	</div>
 
-	<div class="container flex mx-[24px] md:mx-[97px] lg:mx-[355px] w-[327px] md:w-[573px] lg:w-[730px] h-[517px] md:h-[481px] lg:h-[444px] bg-[#FEFEFE] dark:bg-[#1E2A47] mb-[170px] rounded-[15px] mt-[24px] shadow-md">
-		<div class="w-[70px] h-[70px] md:w-[117px] md:h-[117px] lg:w-[117px] lg:h-[117px] pl-[24px] pt-[24px] md:pl[40px] md:pt-[40px] lg:pl-[48px] lg:pt-[48px]">
-			<img class="rounded-full" src={@user_bio.avatar_url} alt="developer profile avatar">
-		</div>
-		<div class="lg:ml-[202px] md:ml-[40px]">
-			<div class="flex justify-between items-center lg:w-full pr-[48px]">
-				<h1 class="text-[#2B3442] dark:text-[#FFFFFF] font-bold text-xl tracking-wider">
-				<%= @user_bio.full_name %>
-				</h1>
-				<p class="pr-[48px] text-[#697C9A] dark:text-[#FFFFFF]">
-					Joined <%= @user_bio.created_at %>
+	<div class="container mx-[24px] md:mx-[97px] lg:mx-[355px] w-[327px] md:w-[573px] lg:w-[730px] h-[517px] md:h-[481px] lg:h-[444px] bg-[#FEFEFE] dark:bg-[#1E2A47] mb-[170px] rounded-[15px] mt-[24px] shadow-md">
+		<div class="container flex md:flex-row lg:flex-row">
+			<div class="absolute pl-[24px] md:pl[40px] md:pt-[40px] lg:pl-[48px] pt-[24px] md:pt[32px] lg:pt-[48px]">
+				<img class="rounded-full w-[70px] h-[70px] md:w-[117px] md:h-[117px] lg:w-[117px] lg:h-[117px]" src={@user_bio.avatar_url} alt="developer profile avatar">
+			</div>
+			<div class="flex flex-col justify-between text-left md:w-full lg:w-full pr-[48px] ml-[19px] md:ml-[40px] lg:ml-[202px] pt-[33px] md:pt-[52px] lg:pt-[44px]">
+				<div class="flex flex-col md:flex-row lg:flex-row">
+					<div>
+						<h1 class="text-[#2B3442] dark:text-[#FFFFFF] font-bold text-xl tracking-wider">
+							<%= @user_bio.full_name %>
+						</h1>
+						<p class="text-blue-600 text-base mt-1">
+							<a href={@user_bio.profile_url}><%= @user_bio.username %></a>
+						</p>
+					</div>
+					<div class="lg:pl-[175px]">
+						<p class="pr-[48px] text-[#697C9A] dark:text-[#FFFFFF]">
+							Joined <%= @user_bio.created_at %>
+						</p>
+					</div>
+				</div>
+				<p class="text-gray-400 text-base mt-4">
+					<%= @user_bio.bio %>
 				</p>
 			</div>
-			<p class="text-blue-600 text-base mt-1">
-				<a href={@user_bio.profile_url}><%= @user_bio.username %></a>
-			</p>
-
-			<p class="text-gray-400 text-base mt-4">
-				<%= @user_bio.bio %>
-			</p>
-
+		</div>
+		<div class="lg:ml-[202px] md:ml-[40px]">
 			<div class="lg:w-[480px] lg:h-[185px]">
 				<div class="py-4 mr-[48px] rounded-lg mt-5 flex justify-around bg-[#F6F8FF] dark:bg-[#141D2F]">
 					<div>
@@ -113,30 +119,34 @@
 					</div>
 				</div>
 
-				<div class="grid grid-cols-2 mt-8 gap-2 mr-[48px]">
-					<div class="flex items-center">
-						<img src="/images/icon-location.svg" class="w-[15px] h-[20px]" />
-						<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
-							<%= @user_bio.location %>
-						</p>
+				<div class="flex md:flex-col lg:flex-col mt-8 gap-2 mr-[48px]">
+					<div class="flex">
+						<div class="flex items-center">
+							<img src="/images/icon-location.svg" class="w-[15px] h-[20px]" />
+							<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
+								<%= @user_bio.location %>
+							</p>
+						</div>
+						<div class="flex items-center md:pl-[168px] lg:pl-[168px]">
+							<img src="/images/icon-twitter.svg" class="w-[15px] h-[15px]" />
+							<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
+								<%= @user_bio.twitter_username %>
+							</p>
+						</div>
 					</div>
-					<div class="flex items-center">
-						<img src="/images/icon-website.svg" class="w-[15px] h-[15px]" />
-						<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
-							<a href={@user_bio.blog}><%= @user_bio.blog %></a>
-						</p>
-					</div>
-					<div class="flex items-center">
-						<img src="/images/icon-twitter.svg" class="w-[15px] h-[15px]" />
-						<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
-							<%= @user_bio.twitter_username %>
-						</p>
-					</div>
-					<div class="flex items-center">
-						<img src="/images/icon-company.svg" class="w-[15px] h-[15px]" />
-						<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
-							<%= @user_bio.company %>
-						</p>
+					<div class="flex">
+						<div class="flex items-center">
+							<img src="/images/icon-website.svg" class="w-[15px] h-[15px]" />
+							<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
+								<a href={@user_bio.blog}><%= @user_bio.blog %></a>
+							</p>
+						</div>
+						<div class="flex items-center md:pl-[80px] lg:pl-[80px]">
+							<img src="/images/icon-company.svg" class="w-[15px] h-[15px]" />
+							<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
+								<%= @user_bio.company %>
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
