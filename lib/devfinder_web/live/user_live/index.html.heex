@@ -1,143 +1,141 @@
-<div class="md:mx-[97px] md:w-[573px] lg:mx-[250px] lg:w-[730px]">
-	<div class="md:mx-[97px] md:w-[573px] lg:mx-[355px] lg:w-[730px] pt-[50px] pb-[10px] py-2 px-4 flex justify-between items-center">
-		<h2 class="font-['Space Mono'] font-[700] text-[26px] leading-[36px] text-[#222731] dark:text-[#FFFFFF]">
-			devfinder
-		</h2>
-		<div
-			class="flex gap-4 items-center p-4 cursor-pointer"
-			phx-click="toggle_current_theme"
-			phx-hook="CurrentThemeToggle"
-			id="theme-button"
-			data-theme={@current_theme}
-			>
-			<%= if @current_theme == "light" do %>
-				<div class="flex">
-					<h2 class="text-sm font-bold uppercase text-[#222731] px-4 pt-1/2 font-mono">dark</h2>
-					<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-						<path
-							d="M19.513 11.397a.701.701 0 00-.588.128 7.496 7.496 0 01-2.276 1.336 7.101 7.101 0 01-2.583.462 7.505 7.505 0 01-5.32-2.209 7.568 7.568 0 01-2.199-5.342c0-.873.154-1.72.41-2.49a6.904 6.904 0 011.227-2.21.657.657 0 00-.102-.924.701.701 0 00-.589-.128C5.32.61 3.427 1.92 2.072 3.666A10.158 10.158 0 000 9.83c0 2.8 1.125 5.342 2.967 7.19a10.025 10.025 0 007.16 2.98c2.353 0 4.527-.822 6.266-2.183a10.13 10.13 0 003.58-5.624.623.623 0 00-.46-.796z"
-						    fill="#222731"
-							fill-rule="nonzero"
-						/>
-					</svg>
-				</div>
-			<% end %>
-			<%= if @current_theme == "dark" do %>
-				<div class="flex">
-					<h2 class="text-sm  font-bold uppercase text-[#90A4D4] px-4 pt-1/2 font-mono">light</h2>
-					<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-						<g fill="#FFF" fill-rule="nonzero">
-							<path
-								d="M13.545 6.455c-.9-.9-2.17-1.481-3.545-1.481a4.934 4.934 0 00-3.545 1.481c-.9.9-1.481 2.17-1.481 3.545 0 1.376.582 2.646 1.481 3.545.9.9 2.17 1.481 3.545 1.481a4.934 4.934 0 003.545-1.481c.9-.9 1.481-2.17 1.481-3.545a4.934 4.934 0 00-1.481-3.545zM10 3.413a.7.7 0 00.688-.688V.688A.7.7 0 0010 0a.7.7 0 00-.688.688v2.037a.7.7 0 00.688.688zM15.635 5.344l1.455-1.455a.67.67 0 000-.952.67.67 0 00-.952 0l-1.455 1.455a.67.67 0 000 .952c.238.264.66.264.952 0zM19.312 9.312h-2.037a.7.7 0 00-.688.688.7.7 0 00.688.688h2.037A.7.7 0 0020 10a.7.7 0 00-.688-.688zM15.608 14.656a.67.67 0 00-.952 0 .67.67 0 000 .952l1.455 1.455a.67.67 0 00.952 0 .67.67 0 000-.952l-1.455-1.455zM10 16.587a.7.7 0 00-.688.688v2.037A.7.7 0 0010 20a.7.7 0 00.688-.688v-2.037a.7.7 0 00-.688-.688zM4.365 14.656L2.91 16.111a.67.67 0 000 .952.67.67 0 00.952 0l1.455-1.455a.67.67 0 000-.952c-.238-.264-.66-.264-.952 0zM3.413 10a.7.7 0 00-.688-.688H.688A.7.7 0 000 10a.7.7 0 00.688.688h2.037A.7.7 0 003.413 10zM4.365 5.344a.67.67 0 00.952 0 .67.67 0 000-.952L3.862 2.937a.67.67 0 00-.952 0 .67.67 0 000 .952l1.455 1.455z"
-								fill="#90A4D4"
-							/>
-						</g>
-					</svg>
-				</div>
-			<% end %>
-		</div>
-	</div>
-
-	<div class="justify-center md:mx-[97px] md:w-[573px] lg:mx-[355px] lg:w-[730px] mt-[36px] shadow-md">
-		<.form
-			let={f}
-			for={:user_bio},
-			id="search-form"
-			phx-submit="search"
-			class="bg-[#FEFEFE] dark:bg-[#1E2A47] md:px-2 py-3 flex rounded-[15px]"
+<div class="container flex mx-[24px] md:mx-[97px] lg:mx-[355px] w-[327px] md:w-[573px] lg:w-[730px] pt-[31px] md:pt-[120px] lg:pt-[120px] md:py-2 md:px-4 justify-between items-center">
+	<h2 class="font-['Space Mono'] font-[700] text-[26px] leading-[36px] text-[#222731] dark:text-[#FFFFFF]">
+		devfinder
+	</h2>
+	<div
+		class="flex gap-4 items-center p-4 cursor-pointer"
+		phx-click="toggle_current_theme"
+		phx-hook="CurrentThemeToggle"
+		id="theme-button"
+		data-theme={@current_theme}
 		>
-
-			<img class="mt-[10px] px[15px] mx-[15px] w-[24px] h-[24px]" src={Routes.static_path(@socket, "/images/icon-search.svg")}>
-
-			<%= text_input f, :username,
-				phx_debounce: "blur",
-				placeholder: "Search GitHub username...",
-				class: "bg-[#FEFEFE] dark:bg-[#1E2A47] text-[#4B6A9B] dark:text-[#FFFFFF] placeholder-[#4B6A9B] mr-[100px] ml-[10px] pl-[5px] border-none w-full font-['Space Mono'] font-normal px-[48px]"
-			%>
-			<%= error_tag  f, :username %>
-
-			<%= submit "Search",
-				phx_disable_with: "Searching...",
-				class: "rounded-[10px] bg-[#0079FF] opacity-100 text-xs md:text-base lg:text-lg font-semibold text-white py-[10px] px-2 md:px-5"
-			%>
-			<%= error_tag f, :get_user %>
-		</.form>
-	</div>
-
-	<div class="bg-[#FEFEFE] dark:bg-[#1E2A47] md:mx-[97px] md:w-[573px] lg:mx-[355px] lg:w-[730px] h-[419px] mb-[170px] rounded-[15px] mt-[24px] shadow-md">
-		<div class="w-[117px] h-[117px] pl-[48px] pt-[48px]">
-			<img class="rounded-full" src={@user_bio.avatar_url} alt="developer profile avatar">
-		</div>
-		<div class="lg:ml-[202px] md:ml-[40px]">
-			<div class="flex justify-between items-center lg:w-full pr-[48px]">
-				<h1 class="text-[#2B3442] dark:text-[#FFFFFF] font-bold text-xl tracking-wider">
-				<%= @user_bio.full_name %>
-				</h1>
-				<p class="pr-[48px] text-[#697C9A] dark:text-[#FFFFFF]">
-					Joined <%= @user_bio.created_at %>
-				</p>
+		<%= if @current_theme == "light" do %>
+			<div class="flex">
+				<h2 class="text-sm font-bold uppercase text-[#222731] px-4 pt-1/2 font-mono">dark</h2>
+				<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+					<path
+						d="M19.513 11.397a.701.701 0 00-.588.128 7.496 7.496 0 01-2.276 1.336 7.101 7.101 0 01-2.583.462 7.505 7.505 0 01-5.32-2.209 7.568 7.568 0 01-2.199-5.342c0-.873.154-1.72.41-2.49a6.904 6.904 0 011.227-2.21.657.657 0 00-.102-.924.701.701 0 00-.589-.128C5.32.61 3.427 1.92 2.072 3.666A10.158 10.158 0 000 9.83c0 2.8 1.125 5.342 2.967 7.19a10.025 10.025 0 007.16 2.98c2.353 0 4.527-.822 6.266-2.183a10.13 10.13 0 003.58-5.624.623.623 0 00-.46-.796z"
+						fill="#222731"
+						fill-rule="nonzero"
+					/>
+				</svg>
 			</div>
-			<p class="text-blue-600 text-base mt-1">
-				<a href={@user_bio.profile_url}><%= @user_bio.username %></a>
-			</p>
+		<% end %>
+		<%= if @current_theme == "dark" do %>
+			<div class="flex">
+				<h2 class="text-sm  font-bold uppercase text-[#90A4D4] px-4 pt-1/2 font-mono">light</h2>
+				<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+					<g fill="#FFF" fill-rule="nonzero">
+						<path
+							d="M13.545 6.455c-.9-.9-2.17-1.481-3.545-1.481a4.934 4.934 0 00-3.545 1.481c-.9.9-1.481 2.17-1.481 3.545 0 1.376.582 2.646 1.481 3.545.9.9 2.17 1.481 3.545 1.481a4.934 4.934 0 003.545-1.481c.9-.9 1.481-2.17 1.481-3.545a4.934 4.934 0 00-1.481-3.545zM10 3.413a.7.7 0 00.688-.688V.688A.7.7 0 0010 0a.7.7 0 00-.688.688v2.037a.7.7 0 00.688.688zM15.635 5.344l1.455-1.455a.67.67 0 000-.952.67.67 0 00-.952 0l-1.455 1.455a.67.67 0 000 .952c.238.264.66.264.952 0zM19.312 9.312h-2.037a.7.7 0 00-.688.688.7.7 0 00.688.688h2.037A.7.7 0 0020 10a.7.7 0 00-.688-.688zM15.608 14.656a.67.67 0 00-.952 0 .67.67 0 000 .952l1.455 1.455a.67.67 0 00.952 0 .67.67 0 000-.952l-1.455-1.455zM10 16.587a.7.7 0 00-.688.688v2.037A.7.7 0 0010 20a.7.7 0 00.688-.688v-2.037a.7.7 0 00-.688-.688zM4.365 14.656L2.91 16.111a.67.67 0 000 .952.67.67 0 00.952 0l1.455-1.455a.67.67 0 000-.952c-.238-.264-.66-.264-.952 0zM3.413 10a.7.7 0 00-.688-.688H.688A.7.7 0 000 10a.7.7 0 00.688.688h2.037A.7.7 0 003.413 10zM4.365 5.344a.67.67 0 00.952 0 .67.67 0 000-.952L3.862 2.937a.67.67 0 00-.952 0 .67.67 0 000 .952l1.455 1.455z"
+							fill="#90A4D4"
+						/>
+					</g>
+				</svg>
+			</div>
+		<% end %>
+	</div>
+</div>
 
-			<p class="text-gray-400 text-base mt-4">
-				<%= @user_bio.bio %>
-			</p>
+<div class="container flex mx-[24px] md:mx-[97px] lg:mx-[355px] w-[327px] md:w-[573px] lg:w-[730px] h-[60px] md:h-[69px] lg:h-[69px] mt-[36px] shadow-md">
+	<.form
+		let={f}
+		for={:user_bio},
+		id="search-form"
+		phx-submit="search"
+		class="bg-[#FEFEFE] dark:bg-[#1E2A47] md:px-2 py-3 flex rounded-[15px] w-[327px] md:w-[573px] lg:w-[730px] mr-[0px] md:mr-[0px] lg:mr-[0px]"
+	>
 
-			<div class="lg:w-[480px] lg:h-[185px]">
-				<div class="py-4 mr-[48px] rounded-lg mt-5 flex justify-around bg-[#F6F8FF] dark:bg-[#141D2F]">
-					<div>
-						<small class="dark:text-gray-300 text-slate-900 text-lg">
-							Repos
-						</small>
-						<p class="dark:text-gray-300 text-slate-900 font-bold text-xl">
-							<%= @user_bio.profile_stats[:public_repos] %>
-						</p>
-					</div>
-					<div>
-						<small class="dark:text-gray-300 text-slate-900 text-lg">
-							Followers
-						</small>
-						<p class="dark:text-gray-300 text-slate-900 font-bold text-xl">
-							<%= @user_bio.profile_stats[:followers] %>
-						</p>
-					</div>
-					<div>
-						<small class="dark:text-gray-300 text-slate-900 text-lg">
-							Following
-						</small>
-						<p class="dark:text-gray-300 text-slate-900 font-bold text-xl">
-							<%= @user_bio.profile_stats[:following] %>
-						</p>
-					</div>
+		<img class="mt-[10px] px[15px] mx-[15px] w-[24px] h-[24px]" src={Routes.static_path(@socket, "/images/icon-search.svg")}>
+
+		<%= text_input f, :username,
+			phx_debounce: "blur",
+			placeholder: "Search GitHub username...",
+			class: "bg-[#FEFEFE] dark:bg-[#1E2A47] text-[#4B6A9B] dark:text-[#FFFFFF] placeholder-[#4B6A9B] mr-[100px] ml-[10px] pl-[5px] border-none w-full font-['Space Mono'] font-normal px-[48px]"
+		%>
+		<%= error_tag  f, :username %>
+
+		<%= submit "Search",
+			phx_disable_with: "Searching...",
+			class: "rounded-[10px] bg-[#0079FF] opacity-100 text-xs md:text-base lg:text-lg font-semibold text-white py-[10px] px-2 md:px-5 mr-[7px] md:mr-[10px] lg:mr-[10px]"
+		%>
+		<%= error_tag f, :get_user %>
+	</.form>
+</div>
+
+<div class="container flex mx-[24px] md:mx-[97px] lg:mx-[355px] w-[327px] md:w-[573px] lg:w-[730px] h-[517px] md:h-[481px] lg:h-[444px] bg-[#FEFEFE] dark:bg-[#1E2A47] mb-[170px] rounded-[15px] mt-[24px] shadow-md">
+	<div class="w-[70px] h-[70px] md:w-[117px] md:h-[117px] lg:w-[117px] lg:h-[117px] pl-[24px] pt-[24px] md:pl[40px] md:pt-[40px] lg:pl-[48px] lg:pt-[48px]">
+		<img class="rounded-full" src={@user_bio.avatar_url} alt="developer profile avatar">
+	</div>
+	<div class="lg:ml-[202px] md:ml-[40px]">
+		<div class="flex justify-between items-center lg:w-full pr-[48px]">
+			<h1 class="text-[#2B3442] dark:text-[#FFFFFF] font-bold text-xl tracking-wider">
+			<%= @user_bio.full_name %>
+			</h1>
+			<p class="pr-[48px] text-[#697C9A] dark:text-[#FFFFFF]">
+				Joined <%= @user_bio.created_at %>
+			</p>
+		</div>
+		<p class="text-blue-600 text-base mt-1">
+			<a href={@user_bio.profile_url}><%= @user_bio.username %></a>
+		</p>
+
+		<p class="text-gray-400 text-base mt-4">
+			<%= @user_bio.bio %>
+		</p>
+
+		<div class="lg:w-[480px] lg:h-[185px]">
+			<div class="py-4 mr-[48px] rounded-lg mt-5 flex justify-around bg-[#F6F8FF] dark:bg-[#141D2F]">
+				<div>
+					<small class="dark:text-gray-300 text-slate-900 text-lg">
+						Repos
+					</small>
+					<p class="dark:text-gray-300 text-slate-900 font-bold text-xl">
+						<%= @user_bio.profile_stats[:public_repos] %>
+					</p>
 				</div>
+				<div>
+					<small class="dark:text-gray-300 text-slate-900 text-lg">
+						Followers
+					</small>
+					<p class="dark:text-gray-300 text-slate-900 font-bold text-xl">
+						<%= @user_bio.profile_stats[:followers] %>
+					</p>
+				</div>
+				<div>
+					<small class="dark:text-gray-300 text-slate-900 text-lg">
+						Following
+					</small>
+					<p class="dark:text-gray-300 text-slate-900 font-bold text-xl">
+						<%= @user_bio.profile_stats[:following] %>
+					</p>
+				</div>
+			</div>
 
-				<div class="grid grid-cols-2 mt-8 gap-2 mr-[48px]">
-					<div class="flex items-center">
-						<img src="/images/icon-location.svg" class="w-[15px] h-[20px]" />
-						<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
-							<%= @user_bio.location %>
-						</p>
-					</div>
-					<div class="flex items-center">
-						<img src="/images/icon-website.svg" class="w-[15px] h-[15px]" />
-						<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
-							<a href={@user_bio.blog}><%= @user_bio.blog %></a>
-						</p>
-					</div>
-					<div class="flex items-center">
-						<img src="/images/icon-twitter.svg" class="w-[15px] h-[15px]" />
-						<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
-							<%= @user_bio.twitter_username %>
-						</p>
-					</div>
-					<div class="flex items-center">
-						<img src="/images/icon-company.svg" class="w-[15px] h-[15px]" />
-						<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
-							<%= @user_bio.company %>
-						</p>
-					</div>
+			<div class="grid grid-cols-2 mt-8 gap-2 mr-[48px]">
+				<div class="flex items-center">
+					<img src="/images/icon-location.svg" class="w-[15px] h-[20px]" />
+					<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
+						<%= @user_bio.location %>
+					</p>
+				</div>
+				<div class="flex items-center">
+					<img src="/images/icon-website.svg" class="w-[15px] h-[15px]" />
+					<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
+						<a href={@user_bio.blog}><%= @user_bio.blog %></a>
+					</p>
+				</div>
+				<div class="flex items-center">
+					<img src="/images/icon-twitter.svg" class="w-[15px] h-[15px]" />
+					<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
+						<%= @user_bio.twitter_username %>
+					</p>
+				</div>
+				<div class="flex items-center">
+					<img src="/images/icon-company.svg" class="w-[15px] h-[15px]" />
+					<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
+						<%= @user_bio.company %>
+					</p>
 				</div>
 			</div>
 		</div>
