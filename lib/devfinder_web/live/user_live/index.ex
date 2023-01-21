@@ -74,7 +74,7 @@ defmodule DevfinderWeb.UserLive.Index do
       bio: "Fullstack Elixir developer",
       location: "Nairobi, Kenya",
       twitter_username: "@amos_kibet",
-      company: "Amozone Labs",
+      company: "Amozone",
       blog: "https://www.amozone.blog",
       created_at: "7 May 2019",
       profile_stats: %{
