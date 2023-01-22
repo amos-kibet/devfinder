@@ -69,21 +69,19 @@
 			<div class="absolute pl-[24px] md:pl[40px] md:pt-[40px] lg:pl-[48px] pt-[24px] md:pt[32px] lg:pt-[48px]">
 				<img class="rounded-full w-[70px] h-[70px] md:w-[117px] md:h-[117px] lg:w-[117px] lg:h-[117px]" src={@user_bio.avatar_url} alt="developer profile avatar">
 			</div>
-			<div class="flex flex-col pl-[113px] text-left md:w-full lg:w-full pr-[48px] ml-[19px] md:ml-[40px] lg:ml-[202px] pt-[33px] md:pt-[52px] lg:pt-[44px]">
-				<div class="flex flex-col md:flex-row lg:flex-row">
-					<div>
-						<h1 class="text-[#2B3442] dark:text-[#FFFFFF] font-bold text-xl tracking-wider">
-							<%= @user_bio.full_name %>
-						</h1>
-						<p class="text-blue-600 text-base mt-1">
-							<a href={@user_bio.profile_url}><%= @user_bio.username %></a>
-						</p>
-					</div>
-					<div class="lg:pl-[175px]">
-						<p class="pr-[48px] text-[#697C9A] dark:text-[#FFFFFF]">
-							Joined <%= @user_bio.created_at %>
-						</p>
-					</div>
+			<div class="flex flex-col lg:flex-row pl-[113px] md:w-full lg:w-full pr-[48px] ml-[19px] md:ml-[60px] lg:ml-[202px] pt-[33px] md:pt-[52px] lg:pt-[44px]">
+				<div>
+					<h1 class="text-[#2B3442] dark:text-[#FFFFFF] font-bold text-xl tracking-wider whitespace-nowrap">
+						<%= @user_bio.full_name %>
+					</h1>
+					<p class="text-blue-600 text-base mt-1 whitespace-nowrap">
+						<a href={@user_bio.profile_url}><%= @user_bio.username %></a>
+					</p>
+				</div>
+				<div class="lg:pl-[100px]">
+					<p class="pr-[48px] text-[#697C9A] dark:text-[#FFFFFF] whitespace-nowrap">
+						Joined <%= @user_bio.created_at %>
+					</p>
 				</div>
 			</div>
 		</div>
