@@ -1,157 +1,141 @@
-<div class="mx-[24px] md:mx-[97px] lg:mx-[250px]">
-	<div class="flex mx-[24px] md:mx-[97px] lg:mx-[355px] w-[327px] md:w-[573px] lg:w-[730px] pt-[31px] md:pt-[120px] lg:pt-[120px] md:py-2 md:px-4 justify-between items-center">
-		<h2 class="font-['Space Mono'] font-[700] text-[26px] leading-[36px] text-[#222731] dark:text-[#FFFFFF]">
-			devfinder
-		</h2>
-		<div
-			class="flex gap-4 items-center p-4 cursor-pointer"
-			phx-click="toggle_current_theme"
-			phx-hook="CurrentThemeToggle"
-			id="theme-button"
-			data-theme={@current_theme}
-			>
-			<%= if @current_theme == "light" do %>
-				<div class="flex">
-					<h2 class="text-sm font-bold uppercase text-[#222731] px-4 pt-1/2 font-mono">dark</h2>
-					<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-						<path
-							d="M19.513 11.397a.701.701 0 00-.588.128 7.496 7.496 0 01-2.276 1.336 7.101 7.101 0 01-2.583.462 7.505 7.505 0 01-5.32-2.209 7.568 7.568 0 01-2.199-5.342c0-.873.154-1.72.41-2.49a6.904 6.904 0 011.227-2.21.657.657 0 00-.102-.924.701.701 0 00-.589-.128C5.32.61 3.427 1.92 2.072 3.666A10.158 10.158 0 000 9.83c0 2.8 1.125 5.342 2.967 7.19a10.025 10.025 0 007.16 2.98c2.353 0 4.527-.822 6.266-2.183a10.13 10.13 0 003.58-5.624.623.623 0 00-.46-.796z"
-							fill="#222731"
-							fill-rule="nonzero"
-						/>
-					</svg>
-				</div>
-			<% end %>
-			<%= if @current_theme == "dark" do %>
-				<div class="flex">
-					<h2 class="text-sm  font-bold uppercase text-[#90A4D4] px-4 pt-1/2 font-mono">light</h2>
-					<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-						<g fill="#FFF" fill-rule="nonzero">
-							<path
-								d="M13.545 6.455c-.9-.9-2.17-1.481-3.545-1.481a4.934 4.934 0 00-3.545 1.481c-.9.9-1.481 2.17-1.481 3.545 0 1.376.582 2.646 1.481 3.545.9.9 2.17 1.481 3.545 1.481a4.934 4.934 0 003.545-1.481c.9-.9 1.481-2.17 1.481-3.545a4.934 4.934 0 00-1.481-3.545zM10 3.413a.7.7 0 00.688-.688V.688A.7.7 0 0010 0a.7.7 0 00-.688.688v2.037a.7.7 0 00.688.688zM15.635 5.344l1.455-1.455a.67.67 0 000-.952.67.67 0 00-.952 0l-1.455 1.455a.67.67 0 000 .952c.238.264.66.264.952 0zM19.312 9.312h-2.037a.7.7 0 00-.688.688.7.7 0 00.688.688h2.037A.7.7 0 0020 10a.7.7 0 00-.688-.688zM15.608 14.656a.67.67 0 00-.952 0 .67.67 0 000 .952l1.455 1.455a.67.67 0 00.952 0 .67.67 0 000-.952l-1.455-1.455zM10 16.587a.7.7 0 00-.688.688v2.037A.7.7 0 0010 20a.7.7 0 00.688-.688v-2.037a.7.7 0 00-.688-.688zM4.365 14.656L2.91 16.111a.67.67 0 000 .952.67.67 0 00.952 0l1.455-1.455a.67.67 0 000-.952c-.238-.264-.66-.264-.952 0zM3.413 10a.7.7 0 00-.688-.688H.688A.7.7 0 000 10a.7.7 0 00.688.688h2.037A.7.7 0 003.413 10zM4.365 5.344a.67.67 0 00.952 0 .67.67 0 000-.952L3.862 2.937a.67.67 0 00-.952 0 .67.67 0 000 .952l1.455 1.455z"
-								fill="#90A4D4"
-							/>
-						</g>
-					</svg>
-				</div>
-			<% end %>
-		</div>
-	</div>
-
-	<div class="container flex mx-[24px] md:mx-[97px] lg:mx-[355px] w-[327px] md:w-[573px] lg:w-[730px] h-[60px] md:h-[69px] lg:h-[69px] mt-[36px] shadow-md">
-		<.form
-			let={f}
-			for={:user_bio},
-			id="search-form"
-			phx-submit="search"
-			class="bg-[#FEFEFE] dark:bg-[#1E2A47] md:px-2 py-3 flex rounded-[15px] w-[327px] md:w-[573px] lg:w-[730px] mr-[0px] md:mr-[0px] lg:mr-[0px]"
-		>
-
-			<img class="mt-[10px] px[15px] mx-[15px] w-[24px] h-[24px]" src={Routes.static_path(@socket, "/images/icon-search.svg")}>
-
-			<%= text_input f, :username,
-				phx_debounce: "blur",
-				placeholder: "Search GitHub username...",
-				class: "bg-[#FEFEFE] dark:bg-[#1E2A47] text-[#4B6A9B] dark:text-[#FFFFFF] placeholder-[#4B6A9B] mr-[100px] ml-[10px] pl-[5px] border-none w-full font-['Space Mono'] font-normal px-[48px]"
-			%>
-			<%= error_tag  f, :username %>
-
-			<%= submit "Search",
-				phx_disable_with: "Searching...",
-				class: "rounded-[10px] bg-[#0079FF] opacity-100 text-xs md:text-base lg:text-lg font-semibold text-white py-[10px] px-2 md:px-5 mr-[7px] md:mr-[10px] lg:mr-[10px]"
-			%>
-			<%= error_tag f, :get_user %>
-		</.form>
-	</div>
-
-	<div class="container mx-[24px] md:mx-[97px] lg:mx-[355px] w-[327px] md:w-[573px] lg:w-[730px] h-[560px] md:h-[481px] lg:h-[500px] bg-[#FEFEFE] dark:bg-[#1E2A47] mb-[170px] rounded-[15px] mt-[24px] shadow-md">
-		<div class="flex flex-col md:flex-row lg:flex-row">
-			<div class="absolute pl-[24px] md:pl[40px] md:pt-[40px] lg:pl-[48px] pt-[24px] md:pt[32px] lg:pt-[48px]">
-				<img class="rounded-full w-[70px] h-[70px] md:w-[117px] md:h-[117px] lg:w-[117px] lg:h-[117px]" src={@user_bio.avatar_url} alt="developer profile avatar">
-			</div>
-			<div class="flex flex-col pl-[113px] text-left md:w-full lg:w-full pr-[48px] ml-[19px] md:ml-[40px] lg:ml-[202px] pt-[33px] md:pt-[52px] lg:pt-[44px]">
-				<div class="flex flex-col md:flex-row lg:flex-row">
-					<div>
-						<h1 class="text-[#2B3442] dark:text-[#FFFFFF] font-bold text-xl tracking-wider">
-							<%= @user_bio.full_name %>
-						</h1>
-						<p class="text-blue-600 text-base mt-1">
-							<a href={@user_bio.profile_url}><%= @user_bio.username %></a>
-						</p>
-					</div>
-					<div class="lg:pl-[175px]">
-						<p class="pr-[48px] text-[#697C9A] dark:text-[#FFFFFF]">
-							Joined <%= @user_bio.created_at %>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="flex ml-[48px] md:ml-[40px] lg:ml-[202px] mt-[33px] md:mt-[56px]">
-			<p class="text-gray-400 text-base mt-4">
-				<%= @user_bio.bio %>
-			</p>
-		</div>
-		<div class="flex ml-[24px] md:ml-[2px] lg:ml-[160px]">
-			<div class="lg:w-[480px] lg:h-[185px]">
-				<div class="py-4 mx-[24px] md:mx-[40px] mr-[48px] rounded-lg mt-5 flex justify-around bg-[#F6F8FF] dark:bg-[#141D2F]">
-					<div>
-						<small class="dark:text-gray-300 text-slate-900 text-lg">
-							Repos
-						</small>
-						<p class="dark:text-gray-300 text-slate-900 font-bold text-xl">
-							<%= @user_bio.profile_stats[:public_repos] %>
-						</p>
-					</div>
-					<div>
-						<small class="dark:text-gray-300 text-slate-900 text-lg">
-							Followers
-						</small>
-						<p class="dark:text-gray-300 text-slate-900 font-bold text-xl">
-							<%= @user_bio.profile_stats[:followers] %>
-						</p>
-					</div>
-					<div>
-						<small class="dark:text-gray-300 text-slate-900 text-lg">
-							Following
-						</small>
-						<p class="dark:text-gray-300 text-slate-900 font-bold text-xl">
-							<%= @user_bio.profile_stats[:following] %>
-						</p>
-					</div>
-				</div>
-
-				<div class="flex flex-col md:flex-row lg:flex-row mt-8 gap-2 mx-[24px] md:mx-[40px] lg:mr-[38px]">
-					<div class="flex flex-col">
-						<div class="flex">
-							<img src="/images/icon-location.svg" class="w-[15px] h-[20px]" />
-							<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
-								<%= @user_bio.location %>
-							</p>
-						</div>
-						<div class="flex ">
-							<img src="/images/icon-twitter.svg" class="w-[15px] h-[15px]" />
-							<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
-								<%= @user_bio.twitter_username %>
-							</p>
-						</div>
-					</div>
-					<div class="flex flex-col md:ml-[100px] lg:ml-[70px]">
-						<div class="flex">
-							<img src="/images/icon-website.svg" class="w-[15px] h-[15px]" />
-							<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
-								<a href={@user_bio.blog}><%= @user_bio.blog %></a>
-							</p>
-						</div>
-						<div class="flex">
-							<img src="/images/icon-company.svg" class="w-[15px] h-[15px]" />
-							<p class="ml-3 text-[#4B6A9B] dark:text-[#FFFFFF]">
-								<%= @user_bio.company %>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="p-6 md:w-[520px] lg:w-[720px] m-auto bg-[#F5F8FF] text-[#23262E] dark:bg-[#141C30] dark:text-[#FDFFFF]">
+  <div>
+    <div class="flex justify-between items-center">
+      <h1 class="font-bold text-3xl ">devfinder</h1>
+      <div
+        class="cursor-pointer"
+        id="toggle_theme"
+        phx-hook="CurrentThemeToggle"
+        phx-click="toggle_current_theme"
+        data-theme={@current_theme}
+      >
+        <%= if @current_theme == "dark" do %>
+          <div class="flex gap-4 items-center p-4">
+            <h2 class="text-sm font-bold uppercase">light</h2>
+            <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+              <g fill="#FFF" fill-rule="nonzero">
+                <path
+                  d="M13.545 6.455c-.9-.9-2.17-1.481-3.545-1.481a4.934 4.934 0 00-3.545 1.481c-.9.9-1.481 2.17-1.481 3.545 0 1.376.582 2.646 1.481 3.545.9.9 2.17 1.481 3.545 1.481a4.934 4.934 0 003.545-1.481c.9-.9 1.481-2.17 1.481-3.545a4.934 4.934 0 00-1.481-3.545zM10 3.413a.7.7 0 00.688-.688V.688A.7.7 0 0010 0a.7.7 0 00-.688.688v2.037a.7.7 0 00.688.688zM15.635 5.344l1.455-1.455a.67.67 0 000-.952.67.67 0 00-.952 0l-1.455 1.455a.67.67 0 000 .952c.238.264.66.264.952 0zM19.312 9.312h-2.037a.7.7 0 00-.688.688.7.7 0 00.688.688h2.037A.7.7 0 0020 10a.7.7 0 00-.688-.688zM15.608 14.656a.67.67 0 00-.952 0 .67.67 0 000 .952l1.455 1.455a.67.67 0 00.952 0 .67.67 0 000-.952l-1.455-1.455zM10 16.587a.7.7 0 00-.688.688v2.037A.7.7 0 0010 20a.7.7 0 00.688-.688v-2.037a.7.7 0 00-.688-.688zM4.365 14.656L2.91 16.111a.67.67 0 000 .952.67.67 0 00.952 0l1.455-1.455a.67.67 0 000-.952c-.238-.264-.66-.264-.952 0zM3.413 10a.7.7 0 00-.688-.688H.688A.7.7 0 000 10a.7.7 0 00.688.688h2.037A.7.7 0 003.413 10zM4.365 5.344a.67.67 0 00.952 0 .67.67 0 000-.952L3.862 2.937a.67.67 0 00-.952 0 .67.67 0 000 .952l1.455 1.455z"
+                  fill="#90A4D4"
+                />
+              </g>
+            </svg>
+          </div>
+        <% end %>
+        <%= if @current_theme == "light" do %>
+          <div class="flex gap-4 items-center p-4">
+            <h2 class="text-sm font-bold uppercase text-[#4D6A97]">dark</h2>
+            <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M19.513 11.397a.701.701 0 00-.588.128 7.496 7.496 0 01-2.276 1.336 7.101 7.101 0 01-2.583.462 7.505 7.505 0 01-5.32-2.209 7.568 7.568 0 01-2.199-5.342c0-.873.154-1.72.41-2.49a6.904 6.904 0 011.227-2.21.657.657 0 00-.102-.924.701.701 0 00-.589-.128C5.32.61 3.427 1.92 2.072 3.666A10.158 10.158 0 000 9.83c0 2.8 1.125 5.342 2.967 7.19a10.025 10.025 0 007.16 2.98c2.353 0 4.527-.822 6.266-2.183a10.13 10.13 0 003.58-5.624.623.623 0 00-.46-.796z"
+                fill="#222731"
+                fill-rule="nonzero"
+              />
+            </svg>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <.form let={f} for={:user_bio} phx-submit="search" id="search-form">
+      <div class="mt-9 flex justify-between items-center bg-[#FEFEFE] p-2 rounded-2xl shadow-xl dark:bg-[#1F2A48]">
+        <div class="flex items-center">
+          <img class="ml-2" src="/images/icon-search.svg" alt="search" />
+          <%= text_input(f, :username,
+            phx_debounce: "blur",
+            placeholder: "Search Github username...",
+            class:
+              "bg-[#FEFEFE] w-full border-none border-transparent focus:border-transparent focus:ring-0 dark:bg-[#1F2A48] dark:text-white"
+          ) %>
+          <%= error_tag(f, :username) %>
+        </div>
+        <%= submit("Search",
+          phx_disable_with: "Searching...",
+          class: "bg-[#0178FF] ml-2 py-4 px-5 font-bold rounded-2xl text-white"
+        ) %>
+        <%= error_tag(f, :get_user) %>
+      </div>
+    </.form>
+  </div>
+  <div class="bg-[#FEFEFE] rounded-2xl mt-5 p-6 shadow-xl lg:flex lg:items-start lg:gap-6 dark:bg-[#1F2A48]">
+    <img src={@user_bio.avatar_url} alt="avatar" class="hidden w-[96px] lg:block rounded-full" />
+    <div>
+      <div class="profile mt-2 flex justify-start items-center gap-4">
+        <img src={@user_bio.avatar_url} alt="avatar" class="w-[96px] rounded-full lg:hidden" />
+        <div class="profile-desc flex flex-col gap-2">
+          <div>
+            <h2 id="name" class="text-lg font-bold"><%= @user_bio.full_name %></h2>
+            <p id="username" class="mt-[-4px] text-blue-500">
+              <a href={@user_bio.profile_url}><%= @user_bio.username %></a>
+            </p>
+          </div>
+          <p id="joined">Joined <%= @user_bio.created_at %></p>
+        </div>
+      </div>
+      <p class=" mt-8">
+        <%= @user_bio.bio %>
+      </p>
+      <div class="text-sm mt-8 flex justify-around bg-[#F5F8FF] p-5 rounded-2xl dark:bg-[#141C30] dark:text-white">
+        <div>
+          <h2 class="text-[#97A4B2]">Repos</h2>
+          <h3 class="text-lg font-bold text-[#41474E] dark:text-[#EBF1F8]">
+            <%= @user_bio.profile_stats[:public_repos] %>
+          </h3>
+        </div>
+        <div>
+          <h2 class="text-[#97A4B2]">Followers</h2>
+          <h3 class="text-lg font-bold text-[#41474E] dark:text-[#EBF1F8]">
+            <%= @user_bio.profile_stats[:followers] %>
+          </h3>
+        </div>
+        <div>
+          <h2 class="text-[#97A4B2]">Following</h2>
+          <h3 class="text-lg font-bold text-[#41474E] dark:text-[#EBF1F8]">
+            <%= @user_bio.profile_stats[:following] %>
+          </h3>
+        </div>
+      </div>
+      <div class="mt-8 flex flex-col gap-3 md:flex-row md:flex-wrap">
+        <div class="flex gap-4 items-center flex-1 basis-1/3">
+          <svg height="20" width="14" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12.797 3.425C11.584 1.33 9.427.05 7.03.002a7.483 7.483 0 00-.308 0C4.325.05 2.17 1.33.955 3.425a6.963 6.963 0 00-.09 6.88l4.959 9.077.007.012c.218.38.609.606 1.045.606.437 0 .828-.226 1.046-.606l.007-.012 4.96-9.077a6.963 6.963 0 00-.092-6.88zm-5.92 5.638c-1.552 0-2.813-1.262-2.813-2.813s1.261-2.812 2.812-2.812S9.69 4.699 9.69 6.25 8.427 9.063 6.876 9.063z"
+              fill="#4b6a9b"
+            />
+          </svg>
+          <h3><%= @user_bio.location %></h3>
+        </div>
+        <div class="flex gap-3 items-center flex-1 basis-1/3">
+          <svg height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#4b6a9b">
+              <path d="M7.404 5.012c-2.355 2.437-1.841 6.482.857 8.273.089.06.207.048.283-.027.568-.555 1.049-1.093 1.47-1.776a.213.213 0 00-.084-.3A2.743 2.743 0 018.878 10.1a2.64 2.64 0 01-.223-1.803c.168-.815 1.043-1.573 1.711-2.274l-.004-.002 2.504-2.555a2.568 2.568 0 013.648-.019 2.6 2.6 0 01.037 3.666l-1.517 1.56a.266.266 0 00-.06.273c.35 1.012.435 2.44.201 3.519-.006.03.031.05.053.028l3.228-3.295c2.062-2.105 2.044-5.531-.04-7.615a5.416 5.416 0 00-7.691.04L7.417 4.998l-.013.014z" /><path d="M13.439 13.75a.401.401 0 00.006-.003c.659-1.204.788-2.586.48-3.933l-.002.002-.001-.001a5.434 5.434 0 00-2.19-3.124.3.3 0 00-.333.015c-.553.448-1.095 1.021-1.452 1.754a.243.243 0 00.096.317c.415.24.79.593 1.04 1.061h.001c.196.33.388.958.263 1.632-.116.894-1.019 1.714-1.736 2.453-.546.559-1.935 1.974-2.49 2.542a2.6 2.6 0 01-3.666.037 2.6 2.6 0 01-.038-3.666l1.521-1.564A.266.266 0 005 11.004c-.338-1.036-.43-2.432-.217-3.51.006-.03-.031-.049-.053-.027l-3.179 3.245c-2.083 2.126-2.066 5.588.04 7.693 2.125 2.083 5.57 2.048 7.653-.078.723-.81 3.821-3.678 4.195-4.577z" />
+            </g>
+          </svg>
+          <h3>
+            <a href="#{@user_bio.blog}"><%= @user_bio.blog %></a>
+          </h3>
+        </div>
+        <div class="flex gap-3 items-center flex-1 basis-1/3">
+          <svg height="18" width="20" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M20 2.799a8.549 8.549 0 01-2.363.647 4.077 4.077 0 001.804-2.266 8.194 8.194 0 01-2.6.993A4.099 4.099 0 009.75 4.977c0 .324.027.637.095.934-3.409-.166-6.425-1.8-8.452-4.288a4.128 4.128 0 00-.56 2.072c0 1.42.73 2.679 1.82 3.408A4.05 4.05 0 01.8 6.598v.045a4.119 4.119 0 003.285 4.028 4.092 4.092 0 01-1.075.135c-.263 0-.528-.015-.776-.07.531 1.624 2.038 2.818 3.831 2.857A8.239 8.239 0 01.981 15.34 7.68 7.68 0 010 15.285a11.543 11.543 0 006.29 1.84c7.545 0 11.67-6.25 11.67-11.667 0-.182-.006-.357-.015-.53A8.18 8.18 0 0020 2.798z"
+              fill="#4b6a9b"
+            />
+          </svg>
+          <h3>
+            <%= @user_bio.twitter_username %>
+          </h3>
+        </div>
+        <div class="flex gap-3 items-center flex-1 basis-1/3">
+          <svg height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#4b6a9b">
+              <path d="M10.858 1.558L1.7.167A1.477 1.477 0 00.517.492 1.49 1.49 0 000 1.608v17.559c0 .458.375.833.833.833h2.709v-4.375c0-.808.65-1.458 1.458-1.458h2.083c.809 0 1.459.65 1.459 1.458V20h3.541V3a1.46 1.46 0 00-1.225-1.442zM4.583 12.292h-1.25a.625.625 0 010-1.25h1.25a.625.625 0 010 1.25zm0-2.5h-1.25a.625.625 0 010-1.25h1.25a.625.625 0 010 1.25zm0-2.5h-1.25a.625.625 0 010-1.25h1.25a.625.625 0 010 1.25zm0-2.5h-1.25a.625.625 0 010-1.25h1.25a.625.625 0 010 1.25zm4.167 7.5H7.5a.625.625 0 010-1.25h1.25a.625.625 0 010 1.25zm0-2.5H7.5a.625.625 0 010-1.25h1.25a.625.625 0 010 1.25zm0-2.5H7.5a.625.625 0 010-1.25h1.25a.625.625 0 010 1.25zm0-2.5H7.5a.625.625 0 010-1.25h1.25a.625.625 0 010 1.25zM18.85 9.035l-5.933-1.242V20h5.625A1.46 1.46 0 0020 18.542V10.46c0-.688-.47-1.274-1.15-1.425zM16.875 17.5h-1.25a.625.625 0 010-1.25h1.25a.625.625 0 010 1.25zm0-2.5h-1.25a.625.625 0 010-1.25h1.25a.625.625 0 010 1.25zm0-2.5h-1.25a.625.625 0 010-1.25h1.25a.625.625 0 010 1.25z" />
+            </g>
+          </svg>
+          <h3>
+            <%= @user_bio.company %>
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
