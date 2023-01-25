@@ -4,10 +4,10 @@ defmodule Devfinder.ApiClient do
 
   @behaviour Devfinder.ApiClientBehaviour
 
-  def http_adapter, do: Application.get_env(:devfinder, :http_client)
+  def http_client, do: Application.get_env(:devfinder, :http_client)
 
   def get_user_bio(username) do
-    case http_adapter().find_dev(username) do
+    case http_client().find_dev(username) do
       {:ok, bio} ->
         dev_bio = %User{
           full_name: bio["name"],
