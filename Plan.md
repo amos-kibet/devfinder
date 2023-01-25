@@ -8,9 +8,9 @@
   - Expose APIs to be used by controllers
     - `get_user_data/1:` returns a map of user data
 
-- Create controllers to render user data
+- Create a live view to render user data
 
-  - Implement actions on get_user controller
+  - Implement a live view to render GitHub user profile in the UI
     - `get_user:` returns a map of user data
     - `prepare_user_data:` retrieves & returns fields required to be rendered on the UI:
       1. name(string)
@@ -18,19 +18,21 @@
       3. avatar_url(string)
       4. bio(string)
       5. created_at(string)
-      6. public_repos(number)
-      7. followers(number)
-      8. following(number)
-      9. location(string)
-      10. twitter_username(string)
-      11. blog(string)
-      12. company(string)
+      6. profile_stats(map of public_repos, followers & following)
+      7. location(string)
+      8. twitter_username(string)
+      9. blog(string)
+      10. company(string)
 
-- Create views to render user data
+- Create a live view template to render user data
 
   - Create a view to render user data
     - Create styles to match requirements
-      - Create styles for dark & light mode
+    - Create styles for dark & light mode
 
-- Finally, write appropriate tests
+- Write appropriate tests
+
   - [Mox](https://hex.pm/packages/mox) will be used to mock client for outside-in tests
+
+- Finally, deploy the application to [flyio](https://fly.io)
+  - Deployed version: [devfinder](https://devfinder.fly.dev/)
