@@ -83,7 +83,7 @@ if config_env() == :prod do
   config :devfinder, api_client: Devfinder.ApiClient
 
   # Use actual Http client on runtime env
-  config :devfinder, http_client: Devfinder.HttpAdapter
+  config :devfinder, http_client: Devfinder.HttpClient
 
   # ## Configuring the mailer
   #
