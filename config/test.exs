@@ -27,7 +27,8 @@ config :devfinder, Devfinder.Mailer, adapter: Swoosh.Adapters.Test
 config :devfinder, api_client: Devfinder.ApiClientMock
 
 # Use mock Http client on test env
-config :devfinder, http_client: Devfinder.HttpMock
+# FIXME: look for a way to mock finch
+config :devfinder, http_client: Devfinder.HttpClientMock
 
 # Print only warnings and errors during test
 config :logger, level: :warn

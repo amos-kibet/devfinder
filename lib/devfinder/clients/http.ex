@@ -1,7 +1,9 @@
-defmodule Devfinder.HttpAdapter do
+defmodule Devfinder.HttpClient do
   @moduledoc false
 
   require Logger
+
+  @behaviour Devfinder.HttpClientBehaviour
 
   @url "https://api.github.com/users/"
 

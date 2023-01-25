@@ -69,7 +69,7 @@ config :devfinder, DevfinderWeb.Endpoint,
 config :devfinder, api_client: Devfinder.ApiClient
 
 # Use actual Http client on dev env
-config :devfinder, http_client: Devfinder.HttpAdapter
+config :devfinder, http_client: Devfinder.HttpClient
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

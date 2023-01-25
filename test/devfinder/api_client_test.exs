@@ -7,8 +7,21 @@ defmodule Devfinder.ApiClientTest do
   alias Devfinder.ApiClient
 
   setup :verify_on_exit!
+  setup :set_mox_from_context
 
   @username "octocat"
+
+  def api_client, do: Application.get_env(:devfinder, :api_client)
+
+  def http_client, do: Application.get_env(:devfinder, :http_client)
+
+  def get_user_bio(username) do
+    api_client().get_user_bio(username)
+  end
+
+  def find_dev(username) do
+    http_client().find_dev(username)
+  end
 
   @user_bio %{
     login: "octocat",
@@ -23,13 +36,18 @@ defmodule Devfinder.ApiClientTest do
     public_repos: 8,
     followers: 8075,
     following: 9,
-    created_at: "2011-01-25T18:44:36Z"
+    created_at: "7 May 2019"
   }
 
   describe "GitHub User Search" do
     test "passing valid username to get_user_bio/1 returns the user's GitHub profile" do
       Devfinder.ApiClientMock
-      |> expect(:get_user_bio, fn _username ->
+      |> expect(:get_user_bio, fn @username ->
+        {:ok, @user_bio}
+      end)
+
+      Devfinder.HttpClientMock
+      |> expect(:find_dev, fn @username ->
         {:ok, @user_bio}
       end)
 

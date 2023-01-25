@@ -1,12 +1,17 @@
-defmodule DevfinderWeb.UserLiveTest do
+defmodule DevfinderWeb.UserLiveIndexTest do
   use DevfinderWeb.ConnCase, async: true
 
+  import Mox
   import Phoenix.LiveViewTest
 
-  # defp get_dev_bio(_) do
-  #   user = user_fixture(@username)
-  #   %{user: user}
-  # end
+  setup :set_mox_from_context
+  setup :verify_on_exit!
+
+  def api_client, do: Application.get_env(:devfinder, :api_client)
+
+  def get_user_bio(username) do
+    api_client().get_user_bio(username)
+  end
 
   describe "Pre-connected & connected state" do
     test "pre-connected", %{conn: conn} do
