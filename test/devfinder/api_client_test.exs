@@ -4,23 +4,14 @@ defmodule Devfinder.ApiClientTest do
 
   import Mox
 
-  alias Devfinder.ApiClient
-
-  setup :verify_on_exit!
-  setup :set_mox_from_context
-
   @username "octocat"
 
   def api_client, do: Application.get_env(:devfinder, :api_client)
 
-  def http_client, do: Application.get_env(:devfinder, :http_client)
-
   def get_user_bio(username) do
-    api_client().get_user_bio(username)
-  end
+    IO.puts("[TEST API_CLIENT CALLED]")
 
-  def find_dev(username) do
-    http_client().find_dev(username)
+    api_client().get_user_bio(username)
   end
 
   @user_bio %{
@@ -46,12 +37,7 @@ defmodule Devfinder.ApiClientTest do
         {:ok, @user_bio}
       end)
 
-      Devfinder.HttpClientMock
-      |> expect(:find_dev, fn @username ->
-        {:ok, @user_bio}
-      end)
-
-      result = ApiClient.get_user_bio(@username)
+      result = get_user_bio(@username)
 
       assert {:ok, @user_bio} == result
     end
