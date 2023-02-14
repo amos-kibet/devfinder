@@ -7,6 +7,8 @@ defmodule Devfinder.ApiClientTest do
 
   @username "octocat"
 
+  setup :verify_on_exit!
+
   def api_client, do: Application.get_env(:devfinder, :api_client)
 
   def get_user_bio(username) do

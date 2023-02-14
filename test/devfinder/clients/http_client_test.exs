@@ -7,6 +7,8 @@ defmodule Devfinder.HttpClientTest do
 
   @username "octocat"
 
+  setup :verify_on_exit!
+
   def http_client, do: Application.get_env(:devfinder, :http_client)
 
   def find_dev(username) do
