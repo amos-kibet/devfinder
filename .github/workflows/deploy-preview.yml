@@ -304,9 +304,9 @@ jobs:
         id: deploy
         uses: superfly/fly-pr-review-apps@1.0.0
         with:
-         postgres: optimum-preview-apps-postgres-db
+          postgres: optimum-preview-apps-postgres-db
 
-     - name: Clean up GitHub environment
+      - name: Clean up GitHub environment
         uses: strumwolf/delete-deployment-environment@v2
         if: ${{ github.event.action == 'closed' }}
         with:
