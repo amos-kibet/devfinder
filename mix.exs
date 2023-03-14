@@ -10,7 +10,22 @@ defmodule Devfinder.MixProject do
       compilers: Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      preferred_cli_env: [
+        ci: :test,
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.html": :test,
+        credo: :test,
+        dialyzer: :test,
+        sobelow: :test
+      ],
+      test_coverage: [tool: ExCoveralls],
+      dialyzer: [
+        ignore_warnings: ".dialyzer_ignore.exs",
+        plt_add_apps: [:ex_unit, :mix],
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
+      ]
     ]
   end
 
@@ -54,7 +69,14 @@ defmodule Devfinder.MixProject do
       {:libcluster, "~> 3.3"},
       {:mox, "~> 1.0"},
       {:timex, "~> 3.7"},
-      {:ex_machina, "~> 2.7"}
+      {:ex_machina, "~> 2.7"},
+
+      # ----------------------<<CICD deps>>------------------------------#
+      {:credo, "~> 1.6", only: [:test], runtime: false},
+      {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.15", only: [:dev, :test]},
+      {:mix_audit, "~> 2.1", only: [:dev, :test], runtime: false},
+      {:sobelow, "~> 0.8", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -70,7 +92,19 @@ defmodule Devfinder.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
+      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"],
+      ci: [
+        "deps.unlock --check-unused",
+        "hex.audit",
+        "sobelow --config .sobelow-conf",
+        "format --check-formatted",
+        "cmd npx prettier -c .",
+        "credo --strict",
+        "dialyzer --format short 2>&1",
+        "deps.audit",
+        "test --cover --warnings-as-errors"
+      ],
+      prettier: ["cmd --cd assets npx prettier -w .."]
     ]
   end
 end
