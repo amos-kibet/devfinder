@@ -283,7 +283,7 @@ jobs:
         env:
           MIX_ENV: test
         run: mix deps.unlock --check-unused
-  staging_app:
+  preview_app:
     needs: compile
     runs-on: ubuntu-latest
 
