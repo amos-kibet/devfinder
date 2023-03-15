@@ -284,6 +284,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Create Preview App
+        uses: superfly/flyctl-actions@1.1
+        with:
+          args: 'apps create pr-${{ github.event.number }}-devfinder --org amozone'
+
       - name: Deploy Preview App
         id: deploy
         uses: superfly/fly-pr-review-apps@1.0.0
