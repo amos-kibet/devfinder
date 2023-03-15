@@ -287,7 +287,7 @@ jobs:
       - name: Create Preview App
         uses: superfly/flyctl-actions@1.1
         with:
-          args: 'apps create pr-${{ github.event.number }}-devfinder --org amozone'
+          args: 'apps create pr-${{ github.event.number }}-devfinder --org personal'
 
       - name: Deploy Preview App
         id: deploy
