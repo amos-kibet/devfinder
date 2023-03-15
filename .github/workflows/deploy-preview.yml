@@ -268,7 +268,6 @@ jobs:
         hex_audit,
         prettier,
         sobelow,
-        test,
         unused_deps,
       ]
     runs-on: ubuntu-latest
