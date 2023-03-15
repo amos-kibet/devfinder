@@ -61,7 +61,7 @@ jobs:
           state: open
       - name: Modify fly.preview.toml file
         run: |
-          sed -i 's/<REPLACED_IN_CI>/pr-${{ steps.findPr.outputs.pr }}/g' fly.preview.toml
+          sed -i 's/<REPLACED_IN_CI>/pr-${{ steps.findPr.outputs.pr }}/g' fly.toml
       - name: Deploy app
         uses: superfly/flyctl-actions@1.3
         with:
