@@ -65,7 +65,7 @@ jobs:
       - name: Deploy app
         uses: superfly/flyctl-actions@1.3
         with:
-          args: 'deploy --region ord --app pr-${{ steps.findPr.outputs.pr }} -c
+          args: 'deploy --region ord -c
             fly.preview.toml'
       - name: Post link to PR Preview
         uses: actions-ecosystem/action-create-comment@v1
