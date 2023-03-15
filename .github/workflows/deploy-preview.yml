@@ -285,7 +285,19 @@ jobs:
           MIX_ENV: test
         run: mix deps.unlock --check-unused
   preview_app:
-    needs: compile
+    needs:
+      [
+        compile,
+        credo,
+        deps_audit,
+        dialyzer,
+        format,
+        hex_audit,
+        prettier,
+        sobelow,
+        test,
+        unused_deps,
+      ]
     runs-on: ubuntu-latest
 
     # Only run one deployment at a time per PR.
