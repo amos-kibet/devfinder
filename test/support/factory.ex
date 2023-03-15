@@ -1,4 +1,6 @@
 defmodule Devfinder.Factory do
+  @moduledoc false
+
   use ExMachina.Ecto, repo: Devfinder.Repo
 
   def user_bio_factory do

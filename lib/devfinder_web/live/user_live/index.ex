@@ -48,9 +48,7 @@ defmodule DevfinderWeb.UserLive.Index do
   def get_user_bio(username) do
     case Core.get_user_bio(username) do
       {:error, :finch_error} ->
-        Logger.error("Something went wrong!")
-
-        # FIXME: use recursion here for retries, but keep in mind not being rate-limited
+        # @FIXME: use recursion here for retries, but keep in mind not being rate-limited
         # get_user_bio(username)
         :finch_error
 
