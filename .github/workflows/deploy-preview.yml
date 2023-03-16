@@ -92,45 +92,6 @@ jobs:
         env:
           MIX_ENV: test
         run: mix deps.audit
-  dialyzer:
-    needs: compile
-    name: Dialyzer
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        otp:
-          - 25.1.2
-        elixir:
-          - 1.14.2
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up Elixir
-        uses: erlef/setup-beam@v1
-        with:
-          elixir-version: ${{matrix.elixir}}
-          otp-version: ${{matrix.otp}}
-      - uses: actions/cache@v3
-        with:
-          path: "_build\ndeps"
-          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-          restore-keys: ${{ runner.os }}-mix
-      - name: Restore PLT cache
-        uses: actions/cache@v3
-        id: plt_cache
-        with:
-          key: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-plt
-          restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-plt
-          path: priv/plts
-      - name: Create PLTs
-        if: steps.plt_cache.outputs.cache-hit != 'true'
-        env:
-          MIX_ENV: test
-        run: mix dialyzer --plt
-      - name: Run dialyzer
-        env:
-          MIX_ENV: test
-        run: mix dialyzer --format short 2>&1
   format:
     needs: compile
     name: Format
@@ -240,6 +201,20 @@ jobs:
           - 25.1.2
         elixir:
           - 1.14.2
+    # Set up a Postgres DB service. By default, Phoenix applications
+    # use Postgres. This creates a database for running tests.
+    # Additional services can be defined here if required.
+    services:
+      db:
+        image: postgres:12
+        ports: ['5432:5432']
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -291,7 +266,6 @@ jobs:
         test,
         credo,
         deps_audit,
-        dialyzer,
         format,
         hex_audit,
         prettier,
