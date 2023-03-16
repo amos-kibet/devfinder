@@ -22,9 +22,7 @@ jobs:
       - name: Build DB
         uses: superfly/flyctl-actions@1.3
         with:
-          args:
-            'pg create --region ord --vm-size shared-cpu-1x --name pr-${{ steps.findPr.outputs.pr }}-devfinder-db --volume-size 1 --organization ${{ env.FLY_ORG }}
-            --initial-cluster-size 1 '
+          args: 'pg create --region ord --vm-size shared-cpu-1x --name pr-${{ steps.findPr.outputs.pr }}-devfinder-db --volume-size 1 --initial-cluster-size 1'
       - name: Create fly app
         uses: superfly/flyctl-actions@1.3
         with:
@@ -63,9 +61,7 @@ jobs:
       - name: Deploy app
         uses: superfly/flyctl-actions@1.3
         with:
-          args:
-            'deploy --region ord --app pr-${{ steps.findPr.outputs.pr }}-devfinder -c
-            fly.toml'
+          args: 'deploy --region jnb --app pr-${{ steps.findPr.outputs.pr }}-devfinder'
       - name: Post link to PR Preview
         uses: actions-ecosystem/action-create-comment@v1
         with:
