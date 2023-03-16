@@ -3,7 +3,7 @@ on: pull_request
 
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-  FLY_ORG: ${{ secrets.FLY_ORG }}
+  FLY_ORG: personal
   FLY_PREVIEW_APP: ...
 
 jobs:
@@ -23,22 +23,22 @@ jobs:
         uses: superfly/flyctl-actions@1.3
         with:
           args:
-            'pg create --region ord --vm-size shared-cpu-1x --name pr-${{ steps.findPr.outputs.pr }}-dev-${{ env.FLY_PREVIEW_APP }}-db --volume-size 1 --organization ${{ env.FLY_ORG }}
+            'pg create --region ord --vm-size shared-cpu-1x --name pr-${{ steps.findPr.outputs.pr }}-devfinder-db --volume-size 1 --organization ${{ env.FLY_ORG }}
             --initial-cluster-size 1 '
       - name: Create fly app
         uses: superfly/flyctl-actions@1.3
         with:
-          args: 'apps create pr-${{ steps.findPr.outputs.pr }}-dev-${{ env.FLY_PREVIEW_APP }} --org ${{ env.FLY_ORG }}'
+          args: 'apps create pr-${{ steps.findPr.outputs.pr }}-devfinder'
       - name: Connect app to DB
         uses: superfly/flyctl-actions@1.3
         env:
-          FLY_APP: pr-${{ steps.findPr.outputs.pr }}-dev-${{ env.FLY_PREVIEW_APP }}
+          FLY_APP: pr-${{ steps.findPr.outputs.pr }}-devfinder
         with:
-          args: 'pg attach --postgres-app pr-${{ steps.findPr.outputs.pr }}-dev-${{ env.FLY_PREVIEW_APP }}-db'
+          args: 'pg attach --postgres-app pr-${{ steps.findPr.outputs.pr }}-devfinder-db'
       - name: Set up secret_key_base with fly secrets
         uses: superfly/flyctl-actions@1.3
         env:
-          FLY_APP: pr-${{ steps.findPr.outputs.pr }}-dev-${{ env.FLY_PREVIEW_APP }}
+          FLY_APP: pr-${{ steps.findPr.outputs.pr }}-devfinder
         with:
           args: 'secrets set ...'
       - name: Post link to PR Preview
@@ -46,7 +46,7 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           body: |
-            Delete the db [here](https://fly.io/apps/pr-${{ steps.findPr.outputs.pr }}-dev-${{ env.FLY_PREVIEW_APP }}-db/settings)
+            Delete the db [here](https://fly.io/apps/pr-${{ steps.findPr.outputs.pr }}-devfinder-db/settings)
 
   app:
     if: github.event.action == 'synchronize'
@@ -64,13 +64,13 @@ jobs:
         uses: superfly/flyctl-actions@1.3
         with:
           args:
-            'deploy --region ord --app pr-${{ steps.findPr.outputs.pr }}-dev-${{ env.FLY_PREVIEW_APP }} -c
+            'deploy --region ord --app pr-${{ steps.findPr.outputs.pr }}-devfinder -c
             fly.toml'
       - name: Post link to PR Preview
         uses: actions-ecosystem/action-create-comment@v1
         with:
           github_token: ${{ secrets.github_token }}
           body: |
-            Your PR is deployed, see it [here](https://pr-${{ steps.findPr.outputs.pr }}-dev-${{ env.FLY_PREVIEW_APP }}.fly.dev)
+            Your PR is deployed, see it [here](https://pr-${{ steps.findPr.outputs.pr }}-devfinder.fly.dev)
             ...
-            Delete the app [here](https://fly.io/apps/pr-${{ steps.findPr.outputs.pr }}-dev-${{ env.FLY_PREVIEW_APP }}/settings)
+            Delete the app [here](https://fly.io/apps/pr-${{ steps.findPr.outputs.pr }}-devfinder/settings)
