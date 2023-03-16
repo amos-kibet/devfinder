@@ -247,7 +247,7 @@ jobs:
       - name: Create Preview App
         uses: superfly/flyctl-actions@1.3
         with:
-          args: 'apps create pr-${{ steps.findPr.outputs.pr }}-${{ env.FLY_PREVIEW_APP }} --org ${{ env.FLY_ORG }}'
+          args: 'apps create pr-${{ steps.findPr.outputs.pr }}${{ env.FLY_PREVIEW_APP }} --org ${{ env.FLY_ORG }}'
 
       - name: Deploy Preview App
         id: deploy
