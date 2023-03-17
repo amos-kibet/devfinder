@@ -6,9 +6,6 @@ on:
 env:
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
   FLY_ORG: optimum-bh
-  FLY_APP: pr-${{ github.event.number }}-devfinder
-  ORG_NAME: optimumBA
-  REPO_NAME: devfinder
 
 jobs:
   compile:
@@ -221,6 +218,53 @@ jobs:
         env:
           MIX_ENV: test
         run: mix deps.unlock --check-unused
+  dialyzer:
+    needs: compile
+    name: Dialyzer
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        otp:
+          - 25.1.2
+        elixir:
+          - 1.14.2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{matrix.elixir}}
+          otp-version: ${{matrix.otp}}
+      - uses: actions/cache@v3
+        with:
+          path: "_build\ndeps"
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix
+      - name: Restore PLT cache
+        uses: actions/cache/restore@v3
+        id: plt_cache
+        with:
+          key: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-plt
+          restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-plt
+          path: priv/plts
+      - name: Create PLTs if no cache was found
+        if: steps.plt_cache.outputs.cache-hit != 'true'
+        env:
+          MIX_ENV: test
+        run: mix dialyzer --plt
+      - name: Save PLT cache
+        uses: actions/cache/save@v3
+        if: steps.plt_cache.outputs.cache-hit != 'true'
+        id: plt_cache_save
+        with:
+          key: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-plt
+          restore-keys: ${{ runner.os }}-${{ matrix.elixir }}-${{ matrix.otp }}-plt
+          path: priv/plts
+      - name: Run dialyzer
+        env:
+          MIX_ENV: test
+        run: mix dialyzer --format short 2>&1
   preview_app:
     needs:
       [
@@ -232,6 +276,7 @@ jobs:
         prettier,
         sobelow,
         unused_deps,
+        dialyzer,
       ]
     runs-on: ubuntu-latest
 
