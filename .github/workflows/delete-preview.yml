@@ -15,5 +15,6 @@ jobs:
         uses: strumwolf/delete-deployment-environment@v2
         if: ${{ github.event.action == 'closed' }}
         with:
+          # ⚠️ The provided token needs permission for admin write:org
           token: ${{ secrets.GITHUB_TOKEN }}
           environment: pr-${{ github.event.number }}
