@@ -1,6 +1,6 @@
-# fly.toml file generated for devfinder on 2023-02-10T17:56:28+03:00
+# fly.toml file generated for pr-1-devfinder on 2023-03-17T01:26:25+03:00
 
-app = "pr-1-devfinder"
+app = "devfinder"
 kill_signal = "SIGTERM"
 kill_timeout = 5
 processes = []
@@ -9,7 +9,7 @@ processes = []
   release_command = "/app/bin/migrate"
 
 [env]
-  PHX_HOST = "pr-1-devfinder.fly.dev"
+  PHX_HOST = "devfinder.fly.dev"
   PORT = "8080"
 
 [experimental]
