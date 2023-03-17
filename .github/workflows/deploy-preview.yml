@@ -252,3 +252,4 @@ jobs:
         uses: superfly/fly-pr-review-apps@1.0.0
         with:
           postgres: optimum-preview-apps-db
+          name: pr-${{ github.event.number }}-developerfinder
