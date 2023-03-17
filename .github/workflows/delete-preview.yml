@@ -9,8 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pr-${{ github.event.number }}
-      url: ${{ steps.deploy.outputs.url }}
+      url: pr-${{ github.event.number }}-devfinder.fly.dev
     steps:
+      - uses: actions/checkout@v3
       - name: Clean up GitHub environment
         uses: strumwolf/delete-deployment-environment@v2
         if: ${{ github.event.action == 'closed' }}
