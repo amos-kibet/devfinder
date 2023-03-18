@@ -8,6 +8,7 @@ env:
 jobs:
   delete_preview_app:
     runs-on: ubuntu-latest
+    name: Delete Preview App & Environments
     environment:
       name: pr-${{ github.event.number }}
       url: https://pr-${{ github.event.number }}-devfinder.fly.dev

@@ -276,6 +276,7 @@ jobs:
         unused_deps,
         dialyzer,
       ]
+    name: Deploy Preview App
     runs-on: ubuntu-latest
     # Only run one deployment at a time per PR.
     concurrency:
