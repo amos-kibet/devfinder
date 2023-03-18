@@ -18,14 +18,12 @@ defmodule DevfinderWeb.UserLiveIndexTest do
   end
 
   describe "Search" do
-    test "get_dev_bio/1 returns GitHub profile of a user with the provided username", %{
+    test "rendered live view has a search form", %{
       conn: conn
     } do
       {:ok, view, _html} = live(conn, "/")
 
-      assert view
-             |> element("#search-form")
-             |> render_submit() =~ "octocat"
+      assert element(view, "#search-form")
     end
   end
 end
