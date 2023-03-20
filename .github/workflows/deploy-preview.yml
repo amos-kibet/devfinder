@@ -281,9 +281,7 @@ jobs:
     # Only run one deployment at a time per PR.
     concurrency:
       group: pr-${{ github.event.number }}
-    # Create a GitHub deployment environment per staging app so it shows up
-    # in the pull request UI.
-    environment:
+    env:
       name: pr-${{ github.event.number }}
       url: https://pr-${{ github.event.number }}-devfinder.fly.dev
     steps:
@@ -296,3 +294,21 @@ jobs:
           postgres: optimum-preview-apps-db
           name: pr-${{ github.event.number }}-devfinder
           path: './'
+  comment:
+    needs:
+      - preview_app
+    if: contains(github.event.comment.body, 'special string')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add comment to PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: pr-${{ github.event.number }}
+          url: https://pr-${{ github.event.number }}-devfinder.fly.dev
+        run: |
+          curl \
+            -X POST \
+            $URL \
+            -H "Content-Type: text/html" \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            --data $url
