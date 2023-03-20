@@ -295,4 +295,4 @@ jobs:
         with:
           postgres: optimum-preview-apps-db
           name: pr-${{ github.event.number }}-devfinder
-          path: '../fly.preview.toml'
+          path: '../../fly.preview.toml'
