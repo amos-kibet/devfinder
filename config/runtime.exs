@@ -21,7 +21,7 @@ if System.get_env("PHX_SERVER") do
 end
 
 if config_env() == :prod do
-  database_url = "postgres://postgres:WM0iYoZlVHee6lG@optimum-preview-apps-db.flycast:5432"
+  database_url = "optimum-preview-apps-db"
 
   maybe_ipv6 = if System.get_env("ECTO_IPV6"), do: [:inet6], else: []
 
