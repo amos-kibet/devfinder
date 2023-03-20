@@ -233,7 +233,8 @@ jobs:
         with:
           elixir-version: ${{matrix.elixir}}
           otp-version: ${{matrix.otp}}
-      - uses: actions/cache@v3
+      - name: Create PLT Cache
+        uses: actions/cache@v3
         with:
           path: "_build\ndeps"
           key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
