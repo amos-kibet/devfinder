@@ -296,3 +296,4 @@ jobs:
           postgres: optimum-preview-apps-db
           name: pr-${{ github.event.number }}-devfinder
           path: '../../'
+          image: '../..'
