@@ -295,5 +295,5 @@ jobs:
         with:
           postgres: optimum-preview-apps-db
           name: pr-${{ github.event.number }}-devfinder
-          config: 'fly.preview.toml'
-          # image: 'Dockerfile'
+          path: 'fly.toml'
+          image: 'Dockerfile'
