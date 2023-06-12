@@ -10,7 +10,7 @@ Technologies used:
 - Phoenix 1.6.13
 - Phoenix LiveView 0.17.5
 - Postgres 15
-- Tailwind CSS V3
+- Tailwind CSS
 
 To start the application:
 
